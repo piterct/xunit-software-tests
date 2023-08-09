@@ -8,5 +8,17 @@ namespace Demo
 {
     public  class Employee: Person
     {
+        public double  Salary { get; set; }
+
+
+        public void SetSalary(double salary)
+        {
+
+        }
+
+        private void SetSkills()
+        {
+
+        }
     }
 }
