@@ -24,7 +24,7 @@ namespace Demo.Tests
             var calculator = new Calculator();
 
             // Act
-            var result = calculator.Somar(1.13123123123, 2.2312313123);
+            var result = calculator.Sum(1.13123123123, 2.2312313123);
 
             // Assert
             Assert.NotEqual(3.3, result, 1);
