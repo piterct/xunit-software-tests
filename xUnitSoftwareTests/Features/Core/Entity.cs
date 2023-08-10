@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Features.Core
 {
-    internal class Entity
+    public class Entity
     {
+        public Guid Id { get; protected set; }
+        public ValidationResult ValidationResult { get; protected set; }
     }
 }
