@@ -8,7 +8,7 @@ namespace Features.Tests._01___Traits
 
         [Fact(DisplayName = "New Client is valid")]
         [Trait("Category", "Client Trait Tests")]
-        public void Cliente_NovoCliente_DeveEstarValido()
+        public void Client_NewClient_MustBeValid()
         {
             // Arrange
             var cliente = new Client(
