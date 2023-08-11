@@ -28,7 +28,7 @@ namespace Features.Tests._01___Traits
             Assert.Equal(0, client.ValidationResult.Errors.Count);
         }
 
-        [Fact(DisplayName = "New Client is valid")]
+        [Fact(DisplayName = "New Client is invalid")]
         [Trait("Category", "Client Trait Tests")]
         public void Client_NewClient_MustBeInValid()
         {
@@ -38,7 +38,7 @@ namespace Features.Tests._01___Traits
                 "",
                 "",
                 DateTime.Now,
-                "edu2edu.com",
+                "michael@edu.com",
                 true,
                 DateTime.Now);
 
