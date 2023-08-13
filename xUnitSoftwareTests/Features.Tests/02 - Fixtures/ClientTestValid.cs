@@ -2,9 +2,9 @@
 
 namespace Features.Tests._02___Fixtures
 {
+    [Collection(nameof(ClientCollection))]
     public class ClientTestValid
     {
-
         private readonly ClientTestsFixture _clientTestsFixture;
 
         public ClientTestValid(ClientTestsFixture clientTestsFixture)
