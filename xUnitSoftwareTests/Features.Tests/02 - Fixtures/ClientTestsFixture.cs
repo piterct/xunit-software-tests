@@ -1,7 +1,11 @@
 ﻿using Features.Clients;
+using Xunit;
 
 namespace Features.Tests._02___Fixtures
 {
+    [CollectionDefinition(nameof(ClienteCollection))]
+    public class ClienteCollection : ICollectionFixture<ClientTestsFixture>
+    { }
     public class ClientTestsFixture : IDisposable
     {
 
@@ -21,7 +25,7 @@ namespace Features.Tests._02___Fixtures
 
         public Client GenerateInvalidClient()
         {
-            var client = new Client(
+            var client  = new Client(
              Guid.NewGuid(),
              "",
              "",
