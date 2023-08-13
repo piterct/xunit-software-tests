@@ -9,7 +9,7 @@ namespace Features.Tests._03___Order
         public static bool Test3Called;
         public static bool Test4Called;
 
-        [Fact(DisplayName = "Test 04")]
+        [Fact(DisplayName = "Test 04"), TestPriority(3)]
         [Trait("Category","Order Tests")]
         public void Test04()
         {
@@ -17,22 +17,22 @@ namespace Features.Tests._03___Order
 
             Assert.True(Test3Called);
             Assert.True(Test1Called);
-            Assert.True(Test2Called);
+            Assert.False(Test2Called);
         }
 
-        [Fact(DisplayName = "Test 01")]
+        [Fact(DisplayName = "Test 01"), TestPriority(2)]
         [Trait("Category", "Order Tests")]
         public void Test01()
         {
             Test1Called = true;
 
-            Assert.False(Test3Called);
+            Assert.True(Test3Called);
             Assert.False(Test4Called);
             Assert.False(Test2Called);
         }
 
 
-        [Fact(DisplayName = "Test 03")]
+        [Fact(DisplayName = "Test 03"), TestPriority(1)]
         [Trait("Category", "Order Tests")]
         public void Test03()
         {
