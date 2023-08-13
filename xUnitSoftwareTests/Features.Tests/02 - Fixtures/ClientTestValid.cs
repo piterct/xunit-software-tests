@@ -1,5 +1,4 @@
-﻿using Features.Clients;
-using Xunit;
+﻿using Xunit;
 
 namespace Features.Tests._02___Fixtures
 {
