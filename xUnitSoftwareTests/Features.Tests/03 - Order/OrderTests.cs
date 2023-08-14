@@ -1,7 +1,8 @@
 ﻿using Xunit;
 
-namespace Features.Tests._03___Order
+namespace Features.Tests
 {
+    [TestCaseOrderer("Features.Tests.PriorityOrderer", "Features.Tests")]
     public class OrderTests
     {
         public static bool Test1Called;
@@ -43,15 +44,15 @@ namespace Features.Tests._03___Order
             Assert.False(Test4Called);
         }
 
-        [Fact(DisplayName = "Test 02")]
+        [Fact(DisplayName = "Test 02"), TestPriority(4)]
         [Trait("Category", "Order Tests")]
         public void Test02()
         {
             Test2Called = true;
 
-            Assert.True(Test1Called);
-            Assert.True(Test2Called);
+            Assert.True(Test3Called);
             Assert.True(Test4Called);
+            Assert.True(Test1Called);
         }
     }
 }
