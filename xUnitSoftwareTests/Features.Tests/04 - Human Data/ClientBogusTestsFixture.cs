@@ -1,9 +1,13 @@
 ﻿using Bogus;
 using Bogus.DataSets;
 using Features.Clients;
+using Xunit;
 
 namespace Features.Tests._04___Human_Data
 {
+    [CollectionDefinition(nameof(ClientBogusCollection))]
+    public class ClientBogusCollection : ICollectionFixture<ClientBogusTestsFixture>
+    { }
     public  class ClientBogusTestsFixture
     {
         public Client GenerateValidNewClient()
