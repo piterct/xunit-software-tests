@@ -3,12 +3,12 @@ using Bogus.DataSets;
 using Features.Clients;
 using Xunit;
 
-namespace Features.Tests._04___Human_Data
+namespace Features.Tests
 {
     [CollectionDefinition(nameof(ClientBogusCollection))]
     public class ClientBogusCollection : ICollectionFixture<ClientBogusTestsFixture>
     { }
-    public  class ClientBogusTestsFixture
+    public  class ClientBogusTestsFixture : IDisposable
     {
         public Client GenerateValidNewClient()
         {
@@ -29,6 +29,10 @@ namespace Features.Tests._04___Human_Data
 
 
             return client;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }
