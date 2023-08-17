@@ -1,6 +1,4 @@
-﻿using Bogus;
-using Bogus.DataSets;
-using Features.Clients;
+﻿using Features.Clients;
 using Xunit;
 
 namespace Features.Tests
