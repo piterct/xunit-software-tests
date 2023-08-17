@@ -1,4 +1,6 @@
-﻿using Features.Clients;
+﻿using Bogus;
+using Bogus.DataSets;
+using Features.Clients;
 using Xunit;
 
 namespace Features.Tests
@@ -11,21 +13,26 @@ namespace Features.Tests
 
         public Client GenerateValidClient()
         {
-            var client = new Client(
-           Guid.NewGuid(),
-           "Michael",
-           "Peter",
-           DateTime.Now.AddYears(-30),
-           "michael@edu.com",
-           true,
-           DateTime.Now);
+            var gender = new Faker().PickRandom<Name.Gender>();
 
+            var client = new Faker<Client>("pt_BR")
+                .CustomInstantiator(f => new Client(
+                    Guid.NewGuid(),
+                    f.Name.FirstName(gender),
+                    f.Name.LastName(gender),
+                    f.Date.Past(80, DateTime.Now.AddDays(-18)),
+                    "",
+                    true,
+                    DateTime.Now))
+                .RuleFor(c => c.Email, (f, c) =>
+                f.Internet.Email(c.Name.ToLower(), c.LasName.ToLower()));
+          
             return client;
         }
 
         public Client GenerateInvalidClient()
         {
-            var client  = new Client(
+            var client = new Client(
              Guid.NewGuid(),
              "",
              "",
