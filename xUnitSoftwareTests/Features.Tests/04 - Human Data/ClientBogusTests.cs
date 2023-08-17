@@ -1,8 +1,8 @@
-﻿using Features.Tests._04___Human_Data;
-using Xunit;
+﻿using Xunit;
 
 namespace Features.Tests
 {
+    [Collection(nameof(ClientBogusCollection))]
     public class ClientBogusTests
     {
         private readonly ClientBogusTestsFixture _clientBogusTestsFixture;
