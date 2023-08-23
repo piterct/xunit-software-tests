@@ -24,15 +24,19 @@ namespace Features.Clients
                 return;
 
             _clientRepository.Add(client);
-            _mediator.Publish(new ClienteEmailNotification("admin@me.com", client.Email, "Hello", "Welcome!"));
+            _mediator.Publish(new ClientEmailNotification("admin@me.com", client.Email, "Hello", "Welcome!"));
         }
 
-        public void Dispose()
+
+        public void Update(Client client)
         {
-            _clientRepository?.Dispose();
+            if (!client.IsValid())
+                return;
+
+            _clientRepository.Update(client);
+            _mediator.Publish(new ClientEmailNotification("admin@me.com", client.Email, "Changes", "Take a look!"));
         }
 
-        
 
         public void Inactivate(Client cliente)
         {
@@ -44,9 +48,9 @@ namespace Features.Clients
             throw new NotImplementedException();
         }
 
-        public void Update(Client client)
+        public void Dispose()
         {
-            throw new NotImplementedException();
+            _clientRepository?.Dispose();
         }
     }
 }
