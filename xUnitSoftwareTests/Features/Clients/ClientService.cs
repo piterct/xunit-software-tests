@@ -38,9 +38,14 @@ namespace Features.Clients
         }
 
 
-        public void Inactivate(Client cliente)
+        public void Inactivate(Client client)
         {
-            throw new NotImplementedException();
+            if (!client.IsValid())
+                return;
+
+            client.Inactivate();
+            _clientRepository.Update(client);
+            _mediator.Publish(new ClientEmailNotification("admin@me.com", client.Email, "See you soon", "Until Later!"));
         }
 
         public void Remove(Client cliente)
