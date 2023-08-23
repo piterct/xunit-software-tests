@@ -12,9 +12,37 @@ namespace Features.Clients
             _clientRepository = clientRepository;
             _mediator = mediator;
         }
+
+        public IEnumerable<Client> GetAllActive()
+        {
+            return _clientRepository.GetAll().Where(x => x.Active);
+        }
+
+        public void Add(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Dispose()
         {
             _clientRepository?.Dispose();
+        }
+
+        
+
+        public void Inactivate(Client cliente)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(Client cliente)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Client client)
+        {
+            throw new NotImplementedException();
         }
     }
 }
