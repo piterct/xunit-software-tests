@@ -20,7 +20,11 @@ namespace Features.Clients
 
         public void Add(Client client)
         {
-            throw new NotImplementedException();
+            if (!client.IsValid())
+                return;
+
+            _clientRepository.Add(client);
+            _mediator.Publish(new ClienteEmailNotification("admin@me.com", client.Email, "Hello", "Welcome!"));
         }
 
         public void Dispose()
