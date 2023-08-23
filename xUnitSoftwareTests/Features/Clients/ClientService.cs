@@ -48,9 +48,10 @@ namespace Features.Clients
             _mediator.Publish(new ClientEmailNotification("admin@me.com", client.Email, "See you soon", "Until Later!"));
         }
 
-        public void Remove(Client cliente)
+        public void Remove(Client client)
         {
-            throw new NotImplementedException();
+            _clientRepository.Remove(client.Id);
+            _mediator.Publish(new ClientEmailNotification("admin@me.com", client.Email, "GoodBye", "Have a good journey!"));
         }
 
         public void Dispose()
