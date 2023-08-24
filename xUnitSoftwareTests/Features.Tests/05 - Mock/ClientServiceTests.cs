@@ -63,6 +63,9 @@ namespace Features.Tests.Mock
             var clientRepo = new Mock<IClientRepository>();
             var mediator = new Mock<IMediator>();
 
+            clientRepo.Setup(c => c.GetAll())
+                .Returns(_clientBogusTestsFixture.GetRandomClients());
+
             var clientService = new ClientService(clientRepo.Object, mediator.Object);
 
             // Act
