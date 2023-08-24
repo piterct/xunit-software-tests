@@ -31,8 +31,8 @@ namespace Features.Tests.Mock
 
             // Assert
             Assert.True(client.IsValid());
-            clientRepo.Verify(r=> r.Add(client), Times.Once);
-            mediator.Verify(v=> v.Publish(It.IsAny<INotification>(),CancellationToken.None), Times.Once);
+            clientRepo.Verify(r => r.Add(client), Times.Once);
+            mediator.Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Once);
         }
 
         [Fact(DisplayName = "Add Client UnSuccessful")]
@@ -59,6 +59,19 @@ namespace Features.Tests.Mock
         [Trait("Category", "Client Service Mock Tests")]
         public void ClientService_GetAllActiveClients_MustReturnOnlyActiveClients()
         {
+            // Arrange
+            var clientRepo = new Mock<IClientRepository>();
+            var mediator = new Mock<IMediator>();
+
+            var clientService = new ClientService(clientRepo.Object, mediator.Object);
+
+            // Act
+            var clients = clientService.GetAllActive();
+
+            // Assert
+            clientRepo.Verify(r => r.GetAll(), Times.Once);
+            Assert.True(clients.Any()); 
+            Assert.False(clients.Count(c => !c.Active) > 0);
 
         }
     }
