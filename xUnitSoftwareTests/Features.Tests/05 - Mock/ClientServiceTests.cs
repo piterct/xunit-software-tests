@@ -54,5 +54,12 @@ namespace Features.Tests.Mock
             clientRepo.Verify(r => r.Add(client), Times.Never);
             mediator.Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Never);
         }
+
+        [Fact(DisplayName = "GetAllActive Clients")]
+        [Trait("Category", "Client Service Mock Tests")]
+        public void ClientService_GetAllActiveClients_MustReturnOnlyActiveClients()
+        {
+
+        }
     }
 }
