@@ -16,6 +16,17 @@ namespace Features.Tests
             return GenerateClients(1, true).FirstOrDefault();
         }
 
+        public IEnumerable<Client> GetRandomClients()
+        {
+            var clients = new List<Client>();
+
+            clients.AddRange(GenerateClients(50, true).ToList());
+            clients.AddRange(GenerateClients(50, false).ToList());
+
+            return clients;
+
+        }
+
         public IEnumerable<Client> GenerateClients(int quantity, bool active)
         {
 
