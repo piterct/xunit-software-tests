@@ -10,7 +10,13 @@ namespace Features.Tests
     { }
     public class ClientBogusTestsFixture : IDisposable
     {
-        public IEnumerable<Client> GenerateValidNewClient(int quantity, bool active)
+
+        public Client GenerateValidNewClient()
+        {
+            return GenerateClients(1, true).FirstOrDefault();
+        }
+
+        public IEnumerable<Client> GenerateClients(int quantity, bool active)
         {
 
             var gender = new Faker().PickRandom<Name.Gender>();
@@ -28,7 +34,7 @@ namespace Features.Tests
                 f.Internet.Email(c.Name.ToLower(), c.LasName.ToLower()));
 
 
-            return clients.Generate(quantity;
+            return clients.Generate(quantity);
         }
 
         public Client GenerateInvalidClient()
