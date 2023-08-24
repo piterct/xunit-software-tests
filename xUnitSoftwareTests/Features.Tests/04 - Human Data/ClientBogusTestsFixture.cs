@@ -8,14 +8,14 @@ namespace Features.Tests
     [CollectionDefinition(nameof(ClientBogusCollection))]
     public class ClientBogusCollection : ICollectionFixture<ClientBogusTestsFixture>
     { }
-    public  class ClientBogusTestsFixture : IDisposable
+    public class ClientBogusTestsFixture : IDisposable
     {
-        public Client GenerateValidNewClient()
+        public IEnumerable<Client> GenerateValidNewClient(int quantity, bool active)
         {
 
             var gender = new Faker().PickRandom<Name.Gender>();
 
-            var client = new Faker<Client>("pt_BR")
+            var clients = new Faker<Client>("pt_BR")
                 .CustomInstantiator(f => new Client(
                     Guid.NewGuid(),
                     f.Name.FirstName(gender),
@@ -28,7 +28,7 @@ namespace Features.Tests
                 f.Internet.Email(c.Name.ToLower(), c.LasName.ToLower()));
 
 
-            return client;
+            return clients.Generate(quantity;
         }
 
         public Client GenerateInvalidClient()
