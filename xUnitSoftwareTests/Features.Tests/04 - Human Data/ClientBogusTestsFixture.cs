@@ -39,7 +39,7 @@ namespace Features.Tests
                     f.Name.LastName(gender),
                     f.Date.Past(80, DateTime.Now.AddDays(-18)),
                     "",
-                    true,
+                    active,
                     DateTime.Now))
                 .RuleFor(c => c.Email, (f, c) =>
                 f.Internet.Email(c.Name.ToLower(), c.LasName.ToLower()));
