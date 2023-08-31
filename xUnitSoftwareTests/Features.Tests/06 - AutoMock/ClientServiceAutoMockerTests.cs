@@ -35,7 +35,7 @@ namespace Features.Tests.AutoMock
         }
 
         [Fact(DisplayName = "Add Client UnSuccessful")]
-        [Trait("Category", "Client Service Mock Tests")]
+        [Trait("Category", "Client Service Auto Mock Tests")]
         public void ClientService_Add_MustFailBecauseInvalidClient()
         {
             // Arrange
@@ -51,6 +51,28 @@ namespace Features.Tests.AutoMock
             Assert.False(client.IsValid());
             mocker.GetMock<IClientRepository>().Verify(r => r.Add(client), Times.Never);
             mocker.GetMock<IMediator>().Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Never);
+        }
+
+        [Fact(DisplayName = "GetAllActive Clients")]
+        [Trait("Category", "Client Service Auto Mock Tests")]
+        public void ClientService_GetAllActiveClients_MustReturnOnlyActiveClients()
+        {
+            // Arrange
+            var mocker = new AutoMocker();
+            var clientService = mocker.CreateInstance<ClientService>();
+
+            mocker.GetMock<IClientRepository>().Setup(c => c.GetAll())
+                .Returns(_clientBogusTestsFixture.GetRandomClients());
+
+
+            // Act
+            var clients = clientService.GetAllActive();
+
+            // Assert
+            mocker.GetMock<IClientRepository>().Verify(r => r.GetAll(), Times.Once);
+            Assert.True(clients.Any());
+            Assert.False(clients.Count(c => !c.Active) > 0);
+
         }
     }
 }
