@@ -23,7 +23,7 @@ namespace Features.Tests.AutoMock
             // Arrange
             var client = _clientBogusTestsFixture.GenerateValidNewClient();
             var mocker = new AutoMocker();
-            var clientService = mocker.CreateInstance<ClientService>(); 
+            var clientService = mocker.CreateInstance<ClientService>();
 
             //Act
             clientService.Add(client);
@@ -32,6 +32,25 @@ namespace Features.Tests.AutoMock
             Assert.True(client.IsValid());
             mocker.GetMock<IClientRepository>().Verify(r => r.Add(client), Times.Once);
             mocker.GetMock<IMediator>().Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Once);
+        }
+
+        [Fact(DisplayName = "Add Client UnSuccessful")]
+        [Trait("Category", "Client Service Mock Tests")]
+        public void ClientService_Add_MustFailBecauseInvalidClient()
+        {
+            // Arrange
+            var client = _clientBogusTestsFixture.GenerateValidNewClient();
+            var mocker = new AutoMocker();
+            var clientService = mocker.CreateInstance<ClientService>();
+
+
+            //Act
+            clientService.Add(client);
+
+            // Assert
+            Assert.False(client.IsValid());
+            mocker.GetMock<IClientRepository>().Verify(r => r.Add(client), Times.Never);
+            mocker.GetMock<IMediator>().Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Never);
         }
     }
 }
