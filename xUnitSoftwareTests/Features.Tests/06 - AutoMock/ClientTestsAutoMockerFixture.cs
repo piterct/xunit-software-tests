@@ -37,9 +37,37 @@ namespace Features.Tests
             return clients.Generate(quantity);
         }
 
+        public IEnumerable<Client> GetRandomClients()
+        {
+            var clients = new List<Client>();
+
+            clients.AddRange(GenerateClients(50, true).ToList());
+            clients.AddRange(GenerateClients(50, false).ToList());
+
+            return clients;
+
+        }
+
+        public Client GenerateInvalidClient()
+        {
+            var gender = new Faker().PickRandom<Name.Gender>();
+
+            var client = new Faker<Client>("pt_BR")
+                .CustomInstantiator(f => new Client(
+                    Guid.NewGuid(),
+                    f.Name.FirstName(gender),
+                    f.Name.LastName(gender),
+                    f.Date.Past(1, DateTime.Now.AddDays(-1)),
+                    "",
+                    false,
+                    DateTime.Now));
+
+            return client;
+        }
+
         public void Dispose()
         {
-            throw new NotImplementedException();
+
         }
     }
 
