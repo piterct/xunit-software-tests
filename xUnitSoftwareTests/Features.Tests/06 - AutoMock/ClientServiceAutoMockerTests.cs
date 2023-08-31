@@ -39,7 +39,7 @@ namespace Features.Tests.AutoMock
         public void ClientService_Add_MustFailBecauseInvalidClient()
         {
             // Arrange
-            var client = _clientBogusTestsFixture.GenerateValidNewClient();
+            var client = _clientBogusTestsFixture.GenerateInvalidClient();
             var mocker = new AutoMocker();
             var clientService = mocker.CreateInstance<ClientService>();
 
