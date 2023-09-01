@@ -6,70 +6,63 @@ using Xunit;
 
 namespace Features.Tests.AutoMock
 {
-    [Collection(nameof(ClientBogusCollection))]
+    [Collection(nameof(ClientAutoMockerColletion))]
     public class ClientServiceAutoMockerFixtureTests
     {
-        private readonly ClientBogusTestsFixture _clientBogusTestsFixture;
-        public ClientServiceAutoMockerFixtureTests(ClientBogusTestsFixture clientBogusTestsFixture)
+        private readonly ClientTestsAutoMockerFixture _clientTestsAutoMockerFixture;
+        private readonly ClientService _clientService;
+        public ClientServiceAutoMockerFixtureTests(ClientTestsAutoMockerFixture clientTestsAutoMockerFixture)
         {
-            _clientBogusTestsFixture = clientBogusTestsFixture;
+            _clientTestsAutoMockerFixture = clientTestsAutoMockerFixture;
+            _clientService = _clientTestsAutoMockerFixture.GetClientService();
         }
 
-
+        
         [Fact(DisplayName = "Add Client Successful")]
-        [Trait("Category", "Client Service AutoMock Tests")]
+        [Trait("Category", "Client Service AutoMockFixture Tests")]
         public void ClientService_Add_MustExecuteSuccessful()
         {
             // Arrange
-            var client = _clientBogusTestsFixture.GenerateValidNewClient();
-            var mocker = new AutoMocker();
-            var clientService = mocker.CreateInstance<ClientService>();
+            var client = _clientTestsAutoMockerFixture.GenerateValidNewClient();
 
             //Act
-            clientService.Add(client);
+            _clientService.Add(client);
 
             // Assert
             Assert.True(client.IsValid());
-            mocker.GetMock<IClientRepository>().Verify(r => r.Add(client), Times.Once);
-            mocker.GetMock<IMediator>().Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Once);
+            _clientTestsAutoMockerFixture.Mocker.GetMock<IClientRepository>().Verify(r => r.Add(client), Times.Once);
+            _clientTestsAutoMockerFixture.Mocker.GetMock<IMediator>().Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Once);
         }
 
         [Fact(DisplayName = "Add Client UnSuccessful")]
-        [Trait("Category", "Client Service Auto Mock Tests")]
+        [Trait("Category", "Client Service AutoMockFixture Tests")]
         public void ClientService_Add_MustFailBecauseInvalidClient()
         {
             // Arrange
-            var client = _clientBogusTestsFixture.GenerateInvalidClient();
-            var mocker = new AutoMocker();
-            var clientService = mocker.CreateInstance<ClientService>();
-
+            var client = _clientTestsAutoMockerFixture.GenerateInvalidClient();
 
             //Act
-            clientService.Add(client);
+            _clientService.Add(client);
 
             // Assert
             Assert.False(client.IsValid());
-            mocker.GetMock<IClientRepository>().Verify(r => r.Add(client), Times.Never);
-            mocker.GetMock<IMediator>().Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Never);
+            _clientTestsAutoMockerFixture.Mocker.GetMock<IClientRepository>().Verify(r => r.Add(client), Times.Never);
+            _clientTestsAutoMockerFixture.Mocker.GetMock<IMediator>().Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Never);
         }
 
         [Fact(DisplayName = "GetAllActive Clients")]
-        [Trait("Category", "Client Service Auto Mock Tests")]
+        [Trait("Category", "Client Service AutoMockFixture Tests")]
         public void ClientService_GetAllActiveClients_MustReturnOnlyActiveClients()
         {
             // Arrange
-            var mocker = new AutoMocker();
-            var clientService = mocker.CreateInstance<ClientService>();
-
-            mocker.GetMock<IClientRepository>().Setup(c => c.GetAll())
-                .Returns(_clientBogusTestsFixture.GetRandomClients());
-
+            _clientTestsAutoMockerFixture.Mocker.GetMock<IClientRepository>().Setup(c => c.GetAll())
+                .Returns(_clientTestsAutoMockerFixture.GetRandomClients());
 
             // Act
-            var clients = clientService.GetAllActive();
+            var clients = _clientService.GetAllActive();
 
             // Assert
-            mocker.GetMock<IClientRepository>().Verify(r => r.GetAll(), Times.Once);
+            _clientTestsAutoMockerFixture.Mocker.GetMock<IClientRepository>().Verify(r => r.GetAll(), Times.Once);
             Assert.True(clients.Any());
             Assert.False(clients.Count(c => !c.Active) > 0);
 
