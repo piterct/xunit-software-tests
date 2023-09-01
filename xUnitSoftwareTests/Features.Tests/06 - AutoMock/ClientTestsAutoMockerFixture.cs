@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using Bogus.DataSets;
 using Features.Clients;
+using Moq.AutoMock;
 using Xunit;
 
 namespace Features.Tests
@@ -11,6 +12,9 @@ namespace Features.Tests
 
     public class ClientTestsAutoMockerFixture : IDisposable
     {
+        public ClientService ClientService;
+        public AutoMocker Mocker;
+
         public Client GenerateValidNewClient()
         {
             return GenerateClients(1, true).FirstOrDefault();
@@ -63,6 +67,14 @@ namespace Features.Tests
                     DateTime.Now));
 
             return client;
+        }
+
+        public ClientService GetClientService()
+        {
+            Mocker = new AutoMocker();
+            ClientService = Mocker.CreateInstance<ClientService>();
+
+            return ClientService;
         }
 
         public void Dispose()
