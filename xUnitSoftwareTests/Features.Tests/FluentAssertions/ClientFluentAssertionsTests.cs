@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Xunit;
 
 namespace Features.Tests.FluentAssertions
 {
-    internal class ClientFluentAssertionsTests
+    [Collection(nameof(ClientAutoMockerColletion))]
+    public class ClientFluentAssertionsTests
     {
+        private readonly ClientTestsAutoMockerFixture _clientTestsAutoMockerFixture;
+
+        public ClientFluentAssertionsTests(ClientTestsAutoMockerFixture clientTestsAutoMockerFixture)
+        {
+            _clientTestsAutoMockerFixture = clientTestsAutoMockerFixture;   
+        }
     }
 }
