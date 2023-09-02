@@ -26,5 +26,20 @@ namespace Features.Tests
             Assert.True(result);
             Assert.Equal(0, client.ValidationResult.Errors.Count);
         }
+
+        [Fact(DisplayName = "New invalid client")]
+        [Trait("Category", "Client Fluent Assertion Tests")]
+        public void Client_NewClient_MustBeInValid()
+        {
+            // Arrange
+            var client = _clientTestsAutoMockerFixture.GenerateInvalidClient();
+
+            // Act
+            var result = client.IsValid();
+
+            // Assert 
+            Assert.False(result);
+            Assert.NotEqual(0, client.ValidationResult.Errors.Count);
+        }
     }
 }
