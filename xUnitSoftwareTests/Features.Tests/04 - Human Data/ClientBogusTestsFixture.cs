@@ -37,7 +37,7 @@ namespace Features.Tests
                     Guid.NewGuid(),
                     f.Name.FirstName(gender),
                     f.Name.LastName(gender),
-                    f.Date.Past(80, DateTime.Now.AddDays(-18)),
+                    f.Date.Past(80, DateTime.Now.AddYears(-18)),
                     "",
                     active,
                     DateTime.Now))
