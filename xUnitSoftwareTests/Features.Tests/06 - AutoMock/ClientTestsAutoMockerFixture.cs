@@ -15,6 +15,7 @@ namespace Features.Tests
         public ClientService ClientService;
         public AutoMocker Mocker;
 
+
         public Client GenerateValidNewClient()
         {
             return GenerateClients(1, true).FirstOrDefault();
@@ -30,7 +31,7 @@ namespace Features.Tests
                     Guid.NewGuid(),
                     f.Name.FirstName(gender),
                     f.Name.LastName(gender),
-                    f.Date.Past(80, DateTime.Now.AddDays(-18)),
+                    f.Date.Past(80, DateTime.Now.AddYears(-18)),
                     "",
                     active,
                     DateTime.Now))
@@ -76,6 +77,7 @@ namespace Features.Tests
 
             return ClientService;
         }
+
 
         public void Dispose()
         {
