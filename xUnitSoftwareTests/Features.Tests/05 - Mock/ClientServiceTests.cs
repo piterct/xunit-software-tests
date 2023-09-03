@@ -3,7 +3,7 @@ using MediatR;
 using Moq;
 using Xunit;
 
-namespace Features.Tests.Mock
+namespace Features.Tests
 {
     [Collection(nameof(ClientBogusCollection))]
     public class ClientServiceTests
