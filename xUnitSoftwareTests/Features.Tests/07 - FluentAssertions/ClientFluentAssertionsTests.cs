@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using FluentAssertions;
+using Xunit;
 
 namespace Features.Tests
 {
@@ -23,8 +24,12 @@ namespace Features.Tests
             var result = client.IsValid();
 
             // Assert 
-            Assert.True(result);
-            Assert.Equal(0, client.ValidationResult.Errors.Count);
+            //Assert.True(result);
+            //Assert.Equal(0, client.ValidationResult.Errors.Count);
+
+            // Assert 
+            result.Should().BeTrue();
+            client.ValidationResult.Errors.Should().HaveCount(0);
         }
 
         [Fact(DisplayName = "New invalid client")]
