@@ -1,5 +1,6 @@
 ﻿using Features.Clients;
 using FluentAssertions;
+using FluentAssertions.Extensions;
 using MediatR;
 using Moq.AutoMock;
 using Moq;
@@ -78,9 +79,11 @@ namespace Features.Tests
             clients.Should().HaveCountGreaterOrEqualTo(1).And.OnlyHaveUniqueItems();
             clients.Should().NotContain(c => !c.Active);
 
-
             _clientTestsAutoMockerFixture.Mocker.GetMock<IClientRepository>().Verify(r => r.GetAll(), Times.Once);
-            
+
+            _clientService.ExecutionTimeOf(c => c.GetAllActive())
+                .Should()
+                .BeLessOrEqualTo(10.Milliseconds(),"is executed many time per second");
         }
     }
 }
