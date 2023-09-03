@@ -4,7 +4,7 @@ using Moq;
 using Moq.AutoMock;
 using Xunit;
 
-namespace Features.Tests.AutoMock
+namespace Features.Tests
 {
     [Collection(nameof(ClientAutoMockerColletion))]
     public class ClientServiceAutoMockerFixtureTests
