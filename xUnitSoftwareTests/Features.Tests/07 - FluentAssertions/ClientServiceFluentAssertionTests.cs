@@ -71,9 +71,16 @@ namespace Features.Tests
             var clients = _clientService.GetAllActive();
 
             // Assert
+            //Assert.True(clients.Any());
+            //Assert.False(clients.Count(c => !c.Active) > 0);
+
+            // Assert 
+            clients.Should().HaveCountGreaterOrEqualTo(1).And.OnlyHaveUniqueItems();
+            clients.Should().NotContain(c => !c.Active);
+
+
             _clientTestsAutoMockerFixture.Mocker.GetMock<IClientRepository>().Verify(r => r.GetAll(), Times.Once);
-            Assert.True(clients.Any());
-            Assert.False(clients.Count(c => !c.Active) > 0);
+            
         }
     }
 }
