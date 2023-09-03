@@ -60,7 +60,7 @@ namespace Features.Tests
         }
 
         [Fact(DisplayName = "GetAllActive Clients")]
-        [Trait("Category", "Client Service AutoMockFixture Tests")]
+        [Trait("Category", "Client Service Fluent Assertion Tests")]
         public void ClientService_GetAllActiveClients_MustReturnOnlyActiveClients()
         {
             // Arrange
