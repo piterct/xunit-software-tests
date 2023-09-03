@@ -43,8 +43,12 @@ namespace Features.Tests
             var result = client.IsValid();
 
             // Assert 
-            Assert.False(result);
-            Assert.NotEqual(0, client.ValidationResult.Errors.Count);
+            //Assert.False(result);
+            //Assert.NotEqual(0, client.ValidationResult.Errors.Count);
+
+            // Assert 
+            result.Should().BeFalse();
+            client.ValidationResult.Errors.Should().HaveCountGreaterOrEqualTo(1,"Must have at least 1 error");
         }
     }
 }
