@@ -49,12 +49,31 @@ namespace Features.Tests
             _clientService.Add(client);
 
             // Assert
+
             //Assert.False(client.IsValid());
 
-            client.IsValid().Should().BeFalse();
+            client.IsValid().Should().BeFalse("There is inconsistencies");
+            client.ValidationResult.Errors.Should().HaveCountGreaterOrEqualTo(1);
 
             _clientTestsAutoMockerFixture.Mocker.GetMock<IClientRepository>().Verify(r => r.Add(client), Times.Never);
             _clientTestsAutoMockerFixture.Mocker.GetMock<IMediator>().Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Never);
+        }
+
+        [Fact(DisplayName = "GetAllActive Clients")]
+        [Trait("Category", "Client Service AutoMockFixture Tests")]
+        public void ClientService_GetAllActiveClients_MustReturnOnlyActiveClients()
+        {
+            // Arrange
+            _clientTestsAutoMockerFixture.Mocker.GetMock<IClientRepository>().Setup(c => c.GetAll())
+                .Returns(_clientTestsAutoMockerFixture.GetRandomClients());
+
+            // Act
+            var clients = _clientService.GetAllActive();
+
+            // Assert
+            _clientTestsAutoMockerFixture.Mocker.GetMock<IClientRepository>().Verify(r => r.GetAll(), Times.Once);
+            Assert.True(clients.Any());
+            Assert.False(clients.Count(c => !c.Active) > 0);
         }
     }
 }
