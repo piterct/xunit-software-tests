@@ -37,5 +37,24 @@ namespace Features.Tests
             _clientTestsAutoMockerFixture.Mocker.GetMock<IClientRepository>().Verify(r => r.Add(client), Times.Once);
             _clientTestsAutoMockerFixture.Mocker.GetMock<IMediator>().Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Once);
         }
+
+        [Fact(DisplayName = "Add Client UnSuccessful")]
+        [Trait("Category", "Client Service Fluent Assertion Tests")]
+        public void ClientService_Add_MustFailBecauseInvalidClient()
+        {
+            // Arrange
+            var client = _clientTestsAutoMockerFixture.GenerateInvalidClient();
+
+            //Act
+            _clientService.Add(client);
+
+            // Assert
+            //Assert.False(client.IsValid());
+
+            client.IsValid().Should().BeFalse();
+
+            _clientTestsAutoMockerFixture.Mocker.GetMock<IClientRepository>().Verify(r => r.Add(client), Times.Never);
+            _clientTestsAutoMockerFixture.Mocker.GetMock<IMediator>().Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Never);
+        }
     }
 }
