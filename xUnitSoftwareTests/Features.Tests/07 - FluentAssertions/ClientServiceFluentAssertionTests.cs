@@ -2,7 +2,6 @@
 using FluentAssertions;
 using FluentAssertions.Extensions;
 using MediatR;
-using Moq.AutoMock;
 using Moq;
 using Xunit;
 
