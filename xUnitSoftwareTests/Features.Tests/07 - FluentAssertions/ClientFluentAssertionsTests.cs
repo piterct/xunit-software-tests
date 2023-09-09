@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Features.Tests
 {
@@ -7,10 +8,12 @@ namespace Features.Tests
     public class ClientFluentAssertionsTests
     {
         private readonly ClientTestsAutoMockerFixture _clientTestsAutoMockerFixture;
+        private readonly ITestOutputHelper _outputHelper;
 
-        public ClientFluentAssertionsTests(ClientTestsAutoMockerFixture clientTestsAutoMockerFixture)
+        public ClientFluentAssertionsTests(ClientTestsAutoMockerFixture clientTestsAutoMockerFixture, ITestOutputHelper outputHelper)
         {
-            _clientTestsAutoMockerFixture = clientTestsAutoMockerFixture;   
+            _clientTestsAutoMockerFixture = clientTestsAutoMockerFixture;
+            _outputHelper = outputHelper;
         }
 
         [Fact(DisplayName = "New valid client")]
@@ -49,6 +52,8 @@ namespace Features.Tests
             // Assert 
             result.Should().BeFalse();
             client.ValidationResult.Errors.Should().HaveCountGreaterOrEqualTo(1,"Must have at least 1 error");
+
+            _outputHelper.WriteLine($"{client.ValidationResult.Errors.Count} Errors were found");
         }
     }
 }
