@@ -44,6 +44,26 @@
                 4.3 - When the discount value exceeds the order total, the order receives the value: 0
                 4.4 - After applying the voucher, the discount must be re-calculated after any modification
                       to the list of order items
+
+
+           /* COMMANDS ORDER - HANDLER * /
+
+              The command order handler will manipulate a command to each intention of a order.
+              All manipulated commands must be verified:
+
+                  If the command is valid
+                  If exists a order
+                  If exists a item order 
+
+             When changing the order status:
+            
+                  Must be done by repository
+                  Must send an event
+
+            1 - AddItemOrderCommand
+                1.1 - Check if it is a new or ongoing order
+                1.2 - Check if the item has already been added to the list
+             
         */
     }
 }
