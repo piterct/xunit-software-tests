@@ -23,7 +23,7 @@ namespace Features.Tests
         }
 
 
-        [Theory(DisplayName = "CPF Invalidos")]
+        [Theory(DisplayName = "Invalid Cpf")]
         [Trait("Category", "CPF validation Tests")]
         [InlineData("15231766607213")]
         [InlineData("528781682082")]
