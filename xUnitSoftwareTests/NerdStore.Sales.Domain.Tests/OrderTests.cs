@@ -42,7 +42,7 @@ namespace NerdStore.Sales.Domain.Tests
         }
 
 
-        [Fact(DisplayName = "Add order item above 15 items ")]
+        [Fact(DisplayName = "Add order item above 15 units ")]
         [Trait("Category", "Order Tests")]
         public void AddOrderItem__ItemAbove15Units__MustReturnException()
         {
