@@ -14,7 +14,7 @@ namespace NerdStore.Sales.Domain.Tests
             var itemOrder = new ItemOrder(Guid.NewGuid(), "Test Product", 2, 100);
 
             // Act
-            order.Adicionar(itemOrder);
+            order.AddItem(itemOrder);
 
             // Assert
             Assert.Equal(200, order.TotalValue);
