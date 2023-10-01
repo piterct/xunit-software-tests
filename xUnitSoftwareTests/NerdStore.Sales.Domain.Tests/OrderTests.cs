@@ -40,5 +40,19 @@ namespace NerdStore.Sales.Domain.Tests
             Assert.Equal(1,order.OrderItems.Count);
             Assert.Equal(3, order.OrderItems.FirstOrDefault(P=> P.ProductId == productId).Quantity);
         }
+
+
+        [Fact(DisplayName = "Add order item above 15 items ")]
+        [Trait("Category", "Order Tests")]
+        public void AddOrderItem__ItemAbove15Units__MustReturnException()
+        {
+            // Arrange
+            
+
+            // Act
+
+            // Assert
+
+        }
     }
 }
