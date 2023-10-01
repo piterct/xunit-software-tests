@@ -10,9 +10,9 @@
             UnitaryValue = unitaryValue;
         }
 
-        public Guid ProductId { get; set; }
-        public string ProductName { get; set; }
-        public int Quantity { get; set; }
-        public decimal UnitaryValue { get; set; }
+        public Guid ProductId { get; private set; }
+        public string ProductName { get; private set; }
+        public int Quantity { get; private set; }
+        public decimal UnitaryValue { get; private set; }
     }
 }
