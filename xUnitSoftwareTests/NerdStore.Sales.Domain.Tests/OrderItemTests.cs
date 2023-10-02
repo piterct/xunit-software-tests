@@ -6,7 +6,7 @@ namespace NerdStore.Sales.Domain.Tests
     public class OrderItemTests
     {
         [Fact(DisplayName = "New order item with unit below allowable")]
-        [Trait("Category", "Order Item Tests")]
+        [Trait("Category", "Sales - Order Item")]
         public void AddOrderItem__ItemBelowAllowable__MustReturnException()
         {
             // Arrange  & Act & Assert
