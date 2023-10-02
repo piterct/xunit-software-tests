@@ -1,7 +1,10 @@
-﻿namespace NerdStore.Sales.Domain
+﻿using NerdStore.Core.DomainObjects;
+
+namespace NerdStore.Sales.Domain
 {
     public class Order
     {
+        public int MAX_UNITS_ITEM => 15;
         protected Order()
         {
             _orderItems = new List<OrderItem>();
@@ -14,13 +17,15 @@
         public List<OrderItem> _orderItems { get; private set; }
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
 
-        public void CalculateValueOrder()
+        private void CalculateValueOrder()
         {
             TotalValue = OrderItems.Sum(o => o.CalculateValue());
         }
 
         public void AddItem(OrderItem itemOrder)
         {
+            if (itemOrder.Quantity > MAX_UNITS_ITEM) throw new DomainException();
+
             if (_orderItems.Any(p => p.ProductId == itemOrder.ProductId))
             {
                 var existingItem = _orderItems.FirstOrDefault(p => p.ProductId == itemOrder.ProductId);
