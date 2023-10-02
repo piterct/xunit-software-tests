@@ -73,5 +73,38 @@ namespace NerdStore.Sales.Domain.Tests
 
         }
 
+        [Fact(DisplayName = "Update non-exist order item")]
+        [Trait("Category", "Sales - Order ")]
+        public void UpdateOrderItem__ItemDoesNotExistsInTheList__MustReturnException()
+        {
+            // Arrange
+            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
+            var orderItem = new OrderItem(Guid.NewGuid(), "Test Product", 1, 100);
+            
+            // Act & Assert
+            Assert.Throws<DomainException>(() => order.UpdateItem(orderItem));
+
+        }
+
+        [Fact(DisplayName = "Update valid order item")]
+        [Trait("Category", "Sales - Order ")]
+        public void UpdateOrderItem__OrderItemValid__MustUpdateQuantity()
+        {
+            // Arrange
+            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
+            var productId = Guid.NewGuid();
+            var orderItem = new OrderItem(productId, "Test Product", 2, 100);
+            order.AddItem(orderItem);
+            var orderItemUpdated = new OrderItem(productId, "Test Product", 5, 100);
+            var  newQuantity = orderItemUpdated.Quantity;
+
+            //Act
+            order.UpdateItem(orderItemUpdated);
+
+            //Assert
+            Assert.Equal(newQuantity, order.OrderItems.FirstOrDefault(p=> p.ProductId == productId).Quantity);
+
+        }
+
     }
 }
