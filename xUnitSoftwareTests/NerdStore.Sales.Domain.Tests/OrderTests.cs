@@ -7,7 +7,7 @@ namespace NerdStore.Sales.Domain.Tests
     {
 
         [Fact(DisplayName = "Add New Order Item ")]
-        [Trait("Category", "Order Tests")]
+        [Trait("Category", "Sales - Order")]
         public void AddOrderItem__NewOrder_MustUpdateValue()
         {
             // Arrange
@@ -22,7 +22,7 @@ namespace NerdStore.Sales.Domain.Tests
         }
 
         [Fact(DisplayName = "Add existing order item ")]
-        [Trait("Category", "Order Tests")]
+        [Trait("Category", "Sales - Order")]
         public void AddOrderItem__ExistingOrderItem_MustIncrementItemsAndSumValues()
         {
             // Arrange
@@ -38,13 +38,13 @@ namespace NerdStore.Sales.Domain.Tests
 
             // Assert
             Assert.Equal(300, order.TotalValue);
-            Assert.Equal(1,order.OrderItems.Count);
-            Assert.Equal(3, order.OrderItems.FirstOrDefault(P=> P.ProductId == productId).Quantity);
+            Assert.Equal(1, order.OrderItems.Count);
+            Assert.Equal(3, order.OrderItems.FirstOrDefault(P => P.ProductId == productId).Quantity);
         }
 
 
         [Fact(DisplayName = "Add order item above allowable")]
-        [Trait("Category", "Order Tests")]
+        [Trait("Category", "Sales - Order")]
         public void AddOrderItem__ItemAboveAllowable__MustReturnException()
         {
             // Arrange
@@ -57,6 +57,21 @@ namespace NerdStore.Sales.Domain.Tests
 
         }
 
-        
+        [Fact(DisplayName = "Add existing order item above allowable")]
+        [Trait("Category", "Sales - Order ")]
+        public void AddOrderItem__ExistingItemUnitAndSumAboveAllowable__MustReturnException()
+        {
+            // Arrange
+            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
+            var productId = Guid.NewGuid();
+            var orderItem = new OrderItem(productId, "Test Product", 1, 100);
+            var orderItem2 = new OrderItem(productId, "Test Product", Order.MAX_UNITS_ITEM, 100);
+            order.AddItem(orderItem);
+
+            // Act & Assert
+            Assert.Throws<DomainException>(() => order.AddItem(orderItem2));
+
+        }
+
     }
 }
