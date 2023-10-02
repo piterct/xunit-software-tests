@@ -57,6 +57,11 @@ namespace NerdStore.Sales.Domain
             CalculateValueOrder();
         }
 
+        public void UpdateItem(OrderItem orderItem)
+        {
+            if(!ExistsOrderItem(orderItem)) throw new DomainException($"The item does not exist in the order");
+        }
+
         public void SetDraft()
         {
             OrderStatus = EOrderStatus.Draft;
