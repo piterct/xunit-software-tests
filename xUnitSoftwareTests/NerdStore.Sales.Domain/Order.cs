@@ -4,7 +4,7 @@ namespace NerdStore.Sales.Domain
 {
     public class Order
     {
-        public int MAX_UNITS_ITEM => 15;
+        public static int MAX_UNITS_ITEM => 15;
         protected Order()
         {
             _orderItems = new List<OrderItem>();
@@ -24,7 +24,7 @@ namespace NerdStore.Sales.Domain
 
         public void AddItem(OrderItem itemOrder)
         {
-            if (itemOrder.Quantity > MAX_UNITS_ITEM) throw new DomainException();
+            if (itemOrder.Quantity > MAX_UNITS_ITEM) throw new DomainException($"Maximum of {MAX_UNITS_ITEM} units per product");
 
             if (_orderItems.Any(p => p.ProductId == itemOrder.ProductId))
             {
