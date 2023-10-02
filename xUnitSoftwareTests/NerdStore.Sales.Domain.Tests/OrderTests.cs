@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using NerdStore.Core.DomainObjects;
+using Xunit;
 
 namespace NerdStore.Sales.Domain.Tests
 {
@@ -42,17 +43,20 @@ namespace NerdStore.Sales.Domain.Tests
         }
 
 
-        [Fact(DisplayName = "Add order item above 15 units ")]
+        [Fact(DisplayName = "Add order item above allowable")]
         [Trait("Category", "Order Tests")]
-        public void AddOrderItem__ItemAbove15Units__MustReturnException()
+        public void AddOrderItem__ItemAboveAllowable__MustReturnException()
         {
             // Arrange
-            
+            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
+            var productId = Guid.NewGuid();
+            var orderItem = new OrderItem(productId, "Test Product", Order.MAX_UNITS_ITEM + 1, 100);
 
-            // Act
-
-            // Assert
+            // Act & Assert
+            Assert.Throws<DomainException>(() => order.AddItem(orderItem));
 
         }
+
+        
     }
 }
