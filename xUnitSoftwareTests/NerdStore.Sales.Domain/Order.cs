@@ -28,6 +28,11 @@ namespace NerdStore.Sales.Domain
             return _orderItems.Any(p => p.ProductId == item.ProductId);
         }
 
+        public void ValidateItemOrderExist(OrderItem item)
+        {
+            if (!ExistsOrderItem(item)) throw new DomainException($"The item does not belong in the order");
+        }
+
         private void ValidateOrderItemQuantityAllowable(OrderItem item)
         {
             var quantityItems = item.Quantity;
@@ -59,7 +64,12 @@ namespace NerdStore.Sales.Domain
 
         public void UpdateItem(OrderItem orderItem)
         {
-            if(!ExistsOrderItem(orderItem)) throw new DomainException($"The item does not exist in the order");
+            ValidateItemOrderExist(orderItem);
+
+            var existItem = OrderItems.FirstOrDefault(p => p.ProductId == orderItem.ProductId);
+
+            _orderItems.Remove(existItem);
+            _orderItems.Add(orderItem);
         }
 
         public void SetDraft()
