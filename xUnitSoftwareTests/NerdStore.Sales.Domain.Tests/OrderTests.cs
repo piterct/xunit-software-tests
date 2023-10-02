@@ -106,5 +106,29 @@ namespace NerdStore.Sales.Domain.Tests
 
         }
 
+        [Fact(DisplayName = "Update order item validate total")]
+        [Trait("Category", "Sales - Order ")]
+        public void UpdateOrderItem__OrderWithDifferenceProducts__MustUpdateTotalValue()
+        {
+            // Arrange
+            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
+            var productId = Guid.NewGuid();
+            var orderItemExist1 = new OrderItem(Guid.NewGuid(), "Test Product", 2, 100);
+            var orderItemExist2 = new OrderItem(productId, "Test Product", 3, 15);
+            order.AddItem(orderItemExist1);
+            order.AddItem(orderItemExist2);
+
+            var orderItemUpdated = new OrderItem(productId, "Test Product", 5, 15);
+            var orderTotal = orderItemExist1.Quantity * orderItemExist1.UnitValue +
+                             orderItemUpdated.Quantity * orderItemUpdated.UnitValue;
+
+            //Act
+            order.UpdateItem(orderItemUpdated);
+
+            //Assert
+            Assert.Equal(orderTotal, order.TotalValue);
+
+        }
+
     }
 }
