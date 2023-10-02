@@ -5,6 +5,7 @@ namespace NerdStore.Sales.Domain
     public class Order
     {
         public static int MAX_UNITS_ITEM => 15;
+        public static int MIN_UNITS_ITEM => 1;
         protected Order()
         {
             _orderItems = new List<OrderItem>();
