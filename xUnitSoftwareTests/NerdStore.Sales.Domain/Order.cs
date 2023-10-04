@@ -65,11 +65,14 @@ namespace NerdStore.Sales.Domain
         public void UpdateItem(OrderItem orderItem)
         {
             ValidateItemOrderExist(orderItem);
+            ValidateOrderItemQuantityAllowable(orderItem);
 
             var existItem = OrderItems.FirstOrDefault(p => p.ProductId == orderItem.ProductId);
 
             _orderItems.Remove(existItem);
             _orderItems.Add(orderItem);
+
+            CalculateValueOrder();
         }
 
         public void SetDraft()
