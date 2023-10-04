@@ -147,7 +147,7 @@ namespace NerdStore.Sales.Domain.Tests
 
         }
 
-        [Fact(DisplayName = "Remove  unexist order item unit ")]
+        [Fact(DisplayName = "Remove  unexist order item")]
         [Trait("Category", "Sales - Order ")]
         public void RemoveOrderItem__ItemDoesNotExistsInTheList__MustReturnException()
         {
@@ -157,6 +157,28 @@ namespace NerdStore.Sales.Domain.Tests
 
             // Act & Assert
             Assert.Throws<DomainException>(() => order.RemoveItem(orderItemRemove));
+
+        }
+
+        [Fact(DisplayName = "Remove order item must calculate Total Value")]
+        [Trait("Category", "Sales - Order ")]
+        public void RemoveOrderItem__ItemExistsInTheList__MustUpdateTotalValue()
+        {
+            // Arrange
+            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
+            var productId = Guid.NewGuid();
+            var orderItem1 = new OrderItem(Guid.NewGuid(), "Xpto Product", 2, 100);
+            var orderItem2 = new OrderItem(productId, "Xpto Product", 3, 15);
+            order.AddItem(orderItem1);
+            order.AddItem(orderItem2);
+
+            var orderTotalValue = orderItem2.Quantity * orderItem2.UnitValue;
+
+            // Act & Assert
+            order.RemoveItem(orderItem1);
+
+            //Assert
+            Assert.Equal(orderTotalValue, order.TotalValue);
 
         }
 
