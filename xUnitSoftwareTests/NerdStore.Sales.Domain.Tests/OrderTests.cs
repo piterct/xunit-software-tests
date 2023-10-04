@@ -130,5 +130,22 @@ namespace NerdStore.Sales.Domain.Tests
 
         }
 
+        [Fact(DisplayName = "Update order item unit above allowable")]
+        [Trait("Category", "Sales - Order ")]
+        public void UpdateOrderItem__ItemUnitAboveAllowable__MustUpdateTotalValue()
+        {
+            // Arrange
+            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
+            var productId = Guid.NewGuid();
+            var orderItemExist1 = new OrderItem(productId, "Test Product", 3, 15);
+            order.AddItem(orderItemExist1);
+
+            var orderItemUpdated = new OrderItem(productId, "Test Product", Order.MAX_UNITS_ITEM, 15);
+
+            // Act & Assert
+            Assert.Throws<DomainException>(() => order.UpdateItem(orderItemUpdated));
+
+        }
+
     }
 }
