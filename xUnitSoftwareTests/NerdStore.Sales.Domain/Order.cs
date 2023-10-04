@@ -75,6 +75,11 @@ namespace NerdStore.Sales.Domain
             CalculateValueOrder();
         }
 
+        public void RemoveItem(OrderItem orderItem)
+        {
+            ValidateItemOrderExist(orderItem);
+        }
+
         public void SetDraft()
         {
             OrderStatus = EOrderStatus.Draft;
