@@ -78,6 +78,10 @@ namespace NerdStore.Sales.Domain
         public void RemoveItem(OrderItem orderItem)
         {
             ValidateItemOrderExist(orderItem);
+
+            _orderItems.Remove(orderItem);
+
+            CalculateValueOrder();
         }
 
         public void SetDraft()
