@@ -80,7 +80,7 @@ namespace NerdStore.Sales.Domain.Tests
             // Arrange
             var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
             var orderItem = new OrderItem(Guid.NewGuid(), "Test Product", 1, 100);
-            
+
             // Act & Assert
             Assert.Throws<DomainException>(() => order.UpdateItem(orderItem));
 
@@ -96,13 +96,13 @@ namespace NerdStore.Sales.Domain.Tests
             var orderItem = new OrderItem(productId, "Test Product", 2, 100);
             order.AddItem(orderItem);
             var orderItemUpdated = new OrderItem(productId, "Test Product", 5, 100);
-            var  newQuantity = orderItemUpdated.Quantity;
+            var newQuantity = orderItemUpdated.Quantity;
 
             //Act
             order.UpdateItem(orderItemUpdated);
 
             //Assert
-            Assert.Equal(newQuantity, order.OrderItems.FirstOrDefault(p=> p.ProductId == productId).Quantity);
+            Assert.Equal(newQuantity, order.OrderItems.FirstOrDefault(p => p.ProductId == productId).Quantity);
 
         }
 
@@ -144,6 +144,19 @@ namespace NerdStore.Sales.Domain.Tests
 
             // Act & Assert
             Assert.Throws<DomainException>(() => order.UpdateItem(orderItemUpdated));
+
+        }
+
+        [Fact(DisplayName = "Remove  unexist order item unit ")]
+        [Trait("Category", "Sales - Order ")]
+        public void RemoveOrderItem__ItemDoesNotExistsInTheList__MustReturnException()
+        {
+            // Arrange
+            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
+            var orderItemRemove = new OrderItem(Guid.NewGuid(), "Test Product", 5, 100);
+
+            // Act & Assert
+            Assert.Throws<DomainException>(() => order.RemoveItem(orderItemRemove));
 
         }
 
