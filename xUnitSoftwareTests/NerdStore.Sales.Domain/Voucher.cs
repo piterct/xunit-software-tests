@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 
 namespace NerdStore.Sales.Domain
 {
@@ -25,9 +26,9 @@ namespace NerdStore.Sales.Domain
         public bool Active { get; private set; }
         public bool Used { get; private set; }
 
-        public bool ValidateIfIsApplicable()
+        public ValidationResult ValidateIfIsApplicable()
         {
-            return true;
+            return new VoucherApplicableValidation().Validate(this);
         }
 
         public class VoucherApplicableValidation : AbstractValidator<Voucher>
