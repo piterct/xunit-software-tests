@@ -57,5 +57,26 @@ namespace NerdStore.Sales.Domain.Tests
             // Assert
             Assert.True(result.IsValid);
         }
+
+
+        [Fact(DisplayName = "Validate percentage voucher invalid")]
+        [Trait("Category", "Sales - Voucher")]
+        public void Voucher_ValidateInValidPercentageVoucher_MustBeInValid()
+        {
+            // Arrange
+            var voucher = new Voucher("", null, null, 0, ETypeOfDiscountVoucher.Percentage, DateTime.Now.AddDays(-1), false, true);
+
+            // Act
+            var result = voucher.ValidateIfIsApplicable();
+
+            // Assert
+            Assert.False(result.IsValid);
+            Assert.Contains(VoucherApplicableValidation.VoucherWihoutValidCode, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(VoucherApplicableValidation.ExpiredVoucher, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(VoucherApplicableValidation.NoLongerValidVoucher, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(VoucherApplicableValidation.VoucherAlreadyUsed, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(VoucherApplicableValidation.NoLongerAvaibleVoucher, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(VoucherApplicableValidation.PercentageValueGreaterThanZero, result.Errors.Select(c => c.ErrorMessage));
+        }
     }
 }
