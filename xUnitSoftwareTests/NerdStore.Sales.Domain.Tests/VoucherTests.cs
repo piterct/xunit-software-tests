@@ -22,7 +22,7 @@ namespace NerdStore.Sales.Domain.Tests
 
         [Fact(DisplayName = "Validate a type invalid voucher")]
         [Trait("Category", "Sales - Voucher")]
-        public void Voucher_ValidateATypeInvalidVoucher_MustBeValid()
+        public void Voucher_ValidateATypeInvalidVoucher_MustBeInvalid()
         {
             // Arrange
             var voucher = new Voucher("", null, null, 0, ETypeOfDiscountVoucher.Value, DateTime.Now.AddDays(-1),
@@ -40,6 +40,22 @@ namespace NerdStore.Sales.Domain.Tests
             Assert.Contains(VoucherApplicableValidation.VoucherAlreadyUsed, result.Errors.Select(c => c.ErrorMessage));
             Assert.Contains(VoucherApplicableValidation.NoLongerAvaibleVoucher, result.Errors.Select(c => c.ErrorMessage));
             Assert.Contains(VoucherApplicableValidation.ValueGreaterThanZero, result.Errors.Select(c => c.ErrorMessage));
+        }
+
+
+        [Fact(DisplayName = "Validate percentage voucher valid")]
+        [Trait("Category", "Sales - Voucher")]
+        public void Voucher_ValidateValidPercentageVoucher_MustBeValid()
+        {
+            // Arrange
+            var voucher = new Voucher("OFF-15", 15, null, 1, ETypeOfDiscountVoucher.Percentage, DateTime.Now.AddDays(15),
+                true, false);
+
+            // Act
+            var result = voucher.ValidateIfIsApplicable();
+
+            // Assert
+            Assert.True(result.IsValid);
         }
     }
 }
