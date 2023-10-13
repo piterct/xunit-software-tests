@@ -34,7 +34,7 @@ namespace NerdStore.Sales.Domain.Tests
             // Assert
             Assert.False(result.IsValid);
             Assert.Equal(6, result.Errors.Count);
-            Assert.Contains(VoucherApplicableValidation.VoucherWihoutValidCode, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(VoucherApplicableValidation.VoucherWithoutValidCode, result.Errors.Select(c => c.ErrorMessage));
             Assert.Contains(VoucherApplicableValidation.ExpiredVoucher, result.Errors.Select(c => c.ErrorMessage));
             Assert.Contains(VoucherApplicableValidation.NoLongerValidVoucher, result.Errors.Select(c => c.ErrorMessage));
             Assert.Contains(VoucherApplicableValidation.VoucherAlreadyUsed, result.Errors.Select(c => c.ErrorMessage));
@@ -71,7 +71,7 @@ namespace NerdStore.Sales.Domain.Tests
 
             // Assert
             Assert.False(result.IsValid);
-            Assert.Contains(VoucherApplicableValidation.VoucherWihoutValidCode, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(VoucherApplicableValidation.VoucherWithoutValidCode, result.Errors.Select(c => c.ErrorMessage));
             Assert.Contains(VoucherApplicableValidation.ExpiredVoucher, result.Errors.Select(c => c.ErrorMessage));
             Assert.Contains(VoucherApplicableValidation.NoLongerValidVoucher, result.Errors.Select(c => c.ErrorMessage));
             Assert.Contains(VoucherApplicableValidation.VoucherAlreadyUsed, result.Errors.Select(c => c.ErrorMessage));
