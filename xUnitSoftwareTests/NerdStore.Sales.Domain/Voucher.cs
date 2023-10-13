@@ -34,7 +34,7 @@ namespace NerdStore.Sales.Domain
         public class VoucherApplicableValidation : AbstractValidator<Voucher>
         {
 
-            public static string VoucherWihoutValidCode => "Voucher without valid code.";
+            public static string VoucherWithoutValidCode => "Voucher without valid code.";
             public static string ExpiredVoucher => "This voucher is expired.";
             public static string NoLongerValidVoucher => "This voucher is no longer valid.";
             public static string VoucherAlreadyUsed => "This voucher has already been used.";
@@ -46,7 +46,7 @@ namespace NerdStore.Sales.Domain
             {
                 RuleFor(c => c.Code)
                     .NotEmpty()
-                    .WithMessage(VoucherWihoutValidCode);
+                    .WithMessage(VoucherWithoutValidCode);
 
                 RuleFor(c => c.ExpirationDate)
                     .Must(ExpirationGreaterThanCurrentl)
