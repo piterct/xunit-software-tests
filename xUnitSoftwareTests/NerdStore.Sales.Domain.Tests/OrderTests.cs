@@ -182,5 +182,22 @@ namespace NerdStore.Sales.Domain.Tests
 
         }
 
+        [Fact(DisplayName = "Apply voucher without errors")]
+        [Trait("Category", "Sales - Order ")]
+        public void Order__AplyValidVoucher__MustReturnWithoutErrors()
+        {
+            // Arrange
+         
+
+         
+
+            // Act & Assert
+        
+
+            //Assert
+           
+
+        }
+
     }
 }
