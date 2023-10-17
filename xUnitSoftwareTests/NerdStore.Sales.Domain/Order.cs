@@ -1,4 +1,5 @@
-﻿using NerdStore.Core.DomainObjects;
+﻿using FluentValidation.Results;
+using NerdStore.Core.DomainObjects;
 
 namespace NerdStore.Sales.Domain
 {
@@ -17,6 +18,11 @@ namespace NerdStore.Sales.Domain
         public EOrderStatus OrderStatus { get; private set; }
         public List<OrderItem> _orderItems { get; private set; }
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
+
+        public ValidationResult ApplyVoucher(Voucher voucher)
+        {
+            return new ValidationResult();
+        }
 
         private void CalculateValueOrder()
         {
