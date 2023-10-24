@@ -182,20 +182,20 @@ namespace NerdStore.Sales.Domain.Tests
 
         }
 
-        [Fact(DisplayName = "Apply voucher without errors")]
+        [Fact(DisplayName = "Apply valid voucher")]
         [Trait("Category", "Sales - Order ")]
         public void Order__AplyValidVoucher__MustReturnWithoutErrors()
         {
             // Arrange
-         
+            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
+            var voucher = new Voucher("OFF-15", null, 15, 1, ETypeOfDiscountVoucher.Value, DateTime.Now.AddDays(15),
+                true, false);
 
-         
-
-            // Act & Assert
-        
+            // Act
+            var result = order.ApplyVoucher(voucher);
 
             //Assert
-           
+            Assert.True(result.IsValid);
 
         }
 
