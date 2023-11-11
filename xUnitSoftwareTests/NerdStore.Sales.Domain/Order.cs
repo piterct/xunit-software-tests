@@ -18,6 +18,8 @@ namespace NerdStore.Sales.Domain
         public EOrderStatus OrderStatus { get; private set; }
         public List<OrderItem> _orderItems { get; private set; }
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
+        public bool UsedVoucher { get; private set; }
+        public Voucher Voucher { get; private set; }
 
         public ValidationResult ApplyVoucher(Voucher voucher)
         {
