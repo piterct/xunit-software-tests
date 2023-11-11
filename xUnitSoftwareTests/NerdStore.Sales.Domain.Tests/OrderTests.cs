@@ -219,7 +219,7 @@ namespace NerdStore.Sales.Domain.Tests
 
         [Fact(DisplayName = "Apply discount type value vouhcer")]
         [Trait("Category", "Sales - Order ")]
-        public void Order__AplyVoucher__MustReturnWithErrors()
+        public void AplyVoucher__TypeOfVoucherDiscountValue_MusDiscountOfValueTotal()
         {
             // Arrange
             var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
