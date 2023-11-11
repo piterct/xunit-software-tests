@@ -13,6 +13,7 @@ namespace NerdStore.Sales.Domain
         }
 
         public Guid ClientId { get; private set; }
+        public decimal Discount { get; private set; }
 
         public decimal TotalValue { get; private set; }
         public EOrderStatus OrderStatus { get; private set; }
@@ -38,20 +39,26 @@ namespace NerdStore.Sales.Domain
         {
             if (!UsedVoucher) return;
 
+            decimal discount = 0;
+
             if (Voucher.TypeOfDiscountVoucher == ETypeOfDiscountVoucher.Value)
             {
                 if (Voucher.DiscountValue.HasValue)
                 {
-                    TotalValue -= Voucher.DiscountValue.Value;
+                    discount = Voucher.DiscountValue.Value;
                 }
             }
             else
             {
                 if (Voucher.DiscountPercentage.HasValue)
                 {
-                    TotalValue -= (TotalValue * Voucher.DiscountPercentage.Value) / 100;
+                    discount = (TotalValue * Voucher.DiscountPercentage.Value) / 100;
+                   
                 }
             }
+
+            TotalValue -= discount;
+            Discount = discount;
         }
 
         private void CalculateValueOrder()
