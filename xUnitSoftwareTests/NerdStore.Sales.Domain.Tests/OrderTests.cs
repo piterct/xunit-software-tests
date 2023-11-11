@@ -254,10 +254,10 @@ namespace NerdStore.Sales.Domain.Tests
             order.AddItem(orderItem1);
             order.AddItem(orderItem2);
 
-            var voucher = new Voucher("OFF-15", null, 15, 1, ETypeOfDiscountVoucher.Percentage, DateTime.Now.AddDays(10),
+            var voucher = new Voucher("OFF-15", 15, null, 1, ETypeOfDiscountVoucher.Percentage, DateTime.Now.AddDays(10),
                 true, false);
 
-            var valueDiscount = (order.TotalValue * voucher.DiscountValue) / 100;
+            var valueDiscount = (order.TotalValue * voucher.DiscountPercentage) / 100;
             var valueTotalWithDiscount = order.TotalValue - valueDiscount;
 
             // Act
