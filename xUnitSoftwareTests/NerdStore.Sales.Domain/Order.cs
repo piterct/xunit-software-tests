@@ -23,7 +23,13 @@ namespace NerdStore.Sales.Domain
 
         public ValidationResult ApplyVoucher(Voucher voucher)
         {
-            return voucher.ValidateIfIsApplicable();
+            var result = voucher.ValidateIfIsApplicable();
+            if (!result.IsValid) return result;
+
+            Voucher = voucher;
+            UsedVoucher = true;
+
+            return result;
         }
 
         private void CalculateValueOrder()
