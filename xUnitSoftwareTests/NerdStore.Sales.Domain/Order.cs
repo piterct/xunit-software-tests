@@ -21,7 +21,7 @@ namespace NerdStore.Sales.Domain
 
         public ValidationResult ApplyVoucher(Voucher voucher)
         {
-            return new ValidationResult();
+            return voucher.ValidateIfIsApplicable();
         }
 
         private void CalculateValueOrder()
