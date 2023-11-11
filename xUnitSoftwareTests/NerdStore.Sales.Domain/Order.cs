@@ -29,7 +29,22 @@ namespace NerdStore.Sales.Domain
             Voucher = voucher;
             UsedVoucher = true;
 
+            CalculateDiscountValueTotal();
+
             return result;
+        }
+
+        public void CalculateDiscountValueTotal()
+        {
+            if (!UsedVoucher) return;
+
+            if (Voucher.TypeOfDiscountVoucher == ETypeOfDiscountVoucher.Value)
+            {
+                if (Voucher.DiscountValue.HasValue)
+                {
+                    TotalValue -= Voucher.DiscountValue.Value;
+                }
+            }
         }
 
         private void CalculateValueOrder()
