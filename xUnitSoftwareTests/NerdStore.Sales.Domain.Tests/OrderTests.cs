@@ -202,7 +202,7 @@ namespace NerdStore.Sales.Domain.Tests
 
         [Fact(DisplayName = "Apply invalid voucher")]
         [Trait("Category", "Sales - Order ")]
-        public void Order__AplyValidVoucher__MustReturnWithErrors()
+        public void Order__AplyInvalidValidVoucher__MustReturnWithErrors()
         {
             // Arrange
             var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
@@ -217,5 +217,21 @@ namespace NerdStore.Sales.Domain.Tests
 
         }
 
+        [Fact(DisplayName = "Apply discount type value vouhcer")]
+        [Trait("Category", "Sales - Order ")]
+        public void Order__AplyVoucher__MustReturnWithErrors()
+        {
+            // Arrange
+            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
+            var voucher = new Voucher("OFF-15", null, 15, 1, ETypeOfDiscountVoucher.Value, DateTime.Now.AddDays(-1),
+                true, true);
+
+            // Act
+            var result = order.ApplyVoucher(voucher);
+
+            //Assert
+            Assert.False(result.IsValid);
+
+        }
     }
 }
