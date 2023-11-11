@@ -45,6 +45,10 @@ namespace NerdStore.Sales.Domain
                     TotalValue -= Voucher.DiscountValue.Value;
                 }
             }
+            else
+            {
+                TotalValue -= (TotalValue * Voucher.DiscountPercentage.Value) / 100;
+            }
         }
 
         private void CalculateValueOrder()
