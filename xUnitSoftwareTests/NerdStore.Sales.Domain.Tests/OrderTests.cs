@@ -267,6 +267,27 @@ namespace NerdStore.Sales.Domain.Tests
             Assert.Equal(valueTotalWithDiscount, order.TotalValue);
 
         }
+
+        [Fact(DisplayName = "Apply discount voucher exceeds order total value")]
+        [Trait("Category", "Sales - Order ")]
+        public void AplyVoucher__DiscountExceedsOrderTotalValue_OrderMustHasZeroValue()
+        {
+            // Arrange
+            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
+
+            var orderItem1 = new OrderItem(Guid.NewGuid(), "Product Xpto", 2, 100);
+            order.AddItem(orderItem1);
+
+            var voucher = new Voucher("OFF-15", null, 300, 1, ETypeOfDiscountVoucher.Value, DateTime.Now.AddDays(10),
+                true, false);
+
+            // Act
+            order.ApplyVoucher(voucher);
+
+            //Assert
+            Assert.Equal(0, order.TotalValue);
+
+        }
     }
 }
 
