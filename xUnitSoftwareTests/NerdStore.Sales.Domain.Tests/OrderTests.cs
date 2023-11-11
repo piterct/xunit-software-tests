@@ -217,20 +217,28 @@ namespace NerdStore.Sales.Domain.Tests
 
         }
 
-        [Fact(DisplayName = "Apply discount type value vouhcer")]
+        [Fact(DisplayName = "Apply type of voucher discount value")]
         [Trait("Category", "Sales - Order ")]
         public void AplyVoucher__TypeOfVoucherDiscountValue_MusDiscountOfValueTotal()
         {
             // Arrange
             var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
-            var voucher = new Voucher("OFF-15", null, 15, 1, ETypeOfDiscountVoucher.Value, DateTime.Now.AddDays(-1),
-                true, true);
+
+            var orderItem1 = new OrderItem(Guid.NewGuid(), "Product Xpto", 2, 100);
+            var orderItem2 = new OrderItem(Guid.NewGuid(), "Product Test", 3, 15);
+            order.AddItem(orderItem1);
+            order.AddItem(orderItem2);
+
+            var voucher = new Voucher("OFF-15", null, 15, 1, ETypeOfDiscountVoucher.Value, DateTime.Now.AddDays(10),
+                true, false);
+
+            var valueWithDiscount = order.TotalValue - voucher.DiscountValue;
 
             // Act
-            var result = order.ApplyVoucher(voucher);
+            order.ApplyVoucher(voucher);
 
             //Assert
-            Assert.False(result.IsValid);
+            Assert.Equal(valueWithDiscount, order.TotalValue);
 
         }
     }
