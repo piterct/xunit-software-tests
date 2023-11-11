@@ -47,7 +47,10 @@ namespace NerdStore.Sales.Domain
             }
             else
             {
-                TotalValue -= (TotalValue * Voucher.DiscountPercentage.Value) / 100;
+                if (Voucher.DiscountPercentage.HasValue)
+                {
+                    TotalValue -= (TotalValue * Voucher.DiscountPercentage.Value) / 100;
+                }
             }
         }
 
