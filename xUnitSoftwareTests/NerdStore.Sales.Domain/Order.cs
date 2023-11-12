@@ -54,7 +54,7 @@ namespace NerdStore.Sales.Domain
             {
                 if (Voucher.DiscountPercentage.HasValue)
                 {
-                    discount = (TotalValue * Voucher.DiscountPercentage.Value) / 100;
+                    discount = (TotalValue * Voucher.DiscountPercentage.Value) / 100; 
                     value -= discount;
 
                 }
