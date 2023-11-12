@@ -56,7 +56,6 @@ namespace NerdStore.Sales.Domain
                 {
                     discount = (TotalValue * Voucher.DiscountPercentage.Value) / 100; 
                     value -= discount;
-
                 }
             }
 
@@ -67,6 +66,7 @@ namespace NerdStore.Sales.Domain
         private void CalculateValueOrder()
         {
             TotalValue = OrderItems.Sum(o => o.CalculateValue());
+            CalculateDiscountValueTotal();
         }
 
         public bool ExistsOrderItem(OrderItem item)
