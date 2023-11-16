@@ -19,5 +19,25 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
             Assert.True(result);
 
         }
+
+        [Fact(DisplayName = "Add Item invalid command")]
+        [Trait("Categoria", "Sales - Order Commands")]
+        public void AddItemOrderCommand_CommandMustBeInvalid_MustNotPassAtValidation()
+        {
+            // Arrange
+            var orderCommand = new AddItemOrderCommand(Guid.Empty,
+                Guid.Empty, "", 0, 0);
+
+            // Act
+            var result = orderCommand.IsValid();
+
+            // Assert
+            Assert.False(result);
+            Assert.Contains(AddItemOrderCommandValidation.ClientIdErrorMsg, orderCommand.ValidationResult.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(AddItemOrderCommandValidation.ProductIdErrorMsg, orderCommand.ValidationResult.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(AddItemOrderCommandValidation.NameErrorMsg, orderCommand.ValidationResult.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(AddItemOrderCommandValidation.QtdMinErrorMsg, orderCommand.ValidationResult.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(AddItemOrderCommandValidation.ValueErrorMsg, orderCommand.ValidationResult.Errors.Select(c => c.ErrorMessage));
+        }
     }
 }
