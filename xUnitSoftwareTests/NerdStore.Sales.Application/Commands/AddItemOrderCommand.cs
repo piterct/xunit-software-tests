@@ -1,9 +1,10 @@
 ﻿using FluentValidation;
+using NerdStore.Core.Messages;
 using NerdStore.Sales.Domain;
 
 namespace NerdStore.Sales.Application.Commands
 {
-    public class AddItemOrderCommand
+    public class AddItemOrderCommand : Command
     {
         public Guid ClientId { get; set; }
         public Guid ProductId { get; set; }
@@ -20,9 +21,10 @@ namespace NerdStore.Sales.Application.Commands
             UnitValue = unitValue;
         }
 
-        public bool IsValid()
+        public override bool IsValid()
         {
-            return true;
+            ValidationResult = new AddItemOrderCommandValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
        
     }
