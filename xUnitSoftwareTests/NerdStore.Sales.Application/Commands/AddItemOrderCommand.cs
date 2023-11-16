@@ -1,4 +1,7 @@
-﻿namespace NerdStore.Sales.Application.Commands
+﻿using FluentValidation;
+using NerdStore.Sales.Domain;
+
+namespace NerdStore.Sales.Application.Commands
 {
     public class AddItemOrderCommand
     {
@@ -19,7 +22,43 @@
 
         public bool IsValid()
         {
-            return false;
+            return true;
+        }
+       
+    }
+
+    public class AddItemOrderCommandValidation : AbstractValidator<AddItemOrderCommand>
+    {
+        public static string ClientIdErrorMsg => "Client id is invalid";
+        public static string ProductIdErrorMsg => "Product id is invalid";
+        public static string NameErrorMsg => "The name of product was not sended";
+        public static string QtdMaxErrorMsg => $"The maximum of quantity is {Order.MAX_UNITS_ITEM}";
+        public static string QtdMinErrorMsg => "The minimum of quantity is 1";
+        public static string ValueErrorMsg => "The value of product must be greater than zero";
+
+        public AddItemOrderCommandValidation()
+        {
+            RuleFor(c => c.ClientId)
+                .NotEqual(Guid.Empty)
+                .WithMessage(ClientIdErrorMsg);
+
+            RuleFor(c => c.ProductId)
+                .NotEqual(Guid.Empty)
+                .WithMessage(ProductIdErrorMsg);
+
+            RuleFor(c => c.Name)
+                .NotEmpty()
+                .WithMessage(NameErrorMsg);
+
+            RuleFor(c => c.Quantity)
+                .GreaterThan(0)
+                .WithMessage(QtdMinErrorMsg)
+                .LessThanOrEqualTo(Order.MAX_UNITS_ITEM)
+                .WithMessage(QtdMaxErrorMsg);
+
+            RuleFor(c => c.UnitValue)
+                .GreaterThan(0)
+                .WithMessage(ValueErrorMsg);
         }
     }
 }
