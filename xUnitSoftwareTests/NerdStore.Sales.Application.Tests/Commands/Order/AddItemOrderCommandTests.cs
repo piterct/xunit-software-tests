@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using NerdStore.Sales.Application.Commands;
+using Xunit;
 
 namespace NerdStore.Sales.Application.Tests.Commands.Order
 {
@@ -12,7 +13,7 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
             var oderItemCommand = new AddItemOrderCommand(Guid.NewGuid(), Guid.NewGuid(), "Test Product", 2, 100);
 
             // Act
-            var result = oderItemCommand.isValid();
+            var result = oderItemCommand.IsValid();
 
             // Assert
             Assert.True(result);
