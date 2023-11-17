@@ -12,7 +12,7 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
 
         [Fact(DisplayName = "Add new item order successful")]
         [Trait("Category", "Sales - Order Command Handler")]
-        public void AddItem__NewOrder__MustExecuteSuccessful()
+        public async Task AddItem__NewOrder__MustExecuteSuccessful()
         {
             // Arrange
             var orderCommand = new AddItemOrderCommand(Guid.NewGuid(), Guid.NewGuid(), "Test Product", 2, 100);
@@ -21,7 +21,7 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
             var orderHandler = mocker.CreateInstance<OrderCommandHandler>();
 
             // Assert
-            var result = orderHandler.Handle(orderCommand);
+            var result = await orderHandler.Handle(orderCommand, CancellationToken.None);
 
             //Assert
             Assert.True(result);
