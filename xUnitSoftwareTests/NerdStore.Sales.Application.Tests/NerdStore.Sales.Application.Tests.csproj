@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NerdStore.Sales.Application\NerdStore.Sales.Application.csproj" />
+    <ProjectReference Include="..\NerdStore.Sales.Domain\NerdStore.Sales.Domain.csproj" />
   </ItemGroup>
 
 </Project>
