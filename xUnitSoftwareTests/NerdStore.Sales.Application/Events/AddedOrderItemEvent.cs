@@ -1,6 +1,8 @@
-﻿namespace NerdStore.Sales.Application.Events
+﻿using MediatR;
+
+namespace NerdStore.Sales.Application.Events
 {
-    public class AddedOrderItemEvent
+    public class AddedOrderItemEvent : INotification
     {
     }
 }
