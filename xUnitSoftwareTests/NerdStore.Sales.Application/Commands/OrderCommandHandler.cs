@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using NerdStore.Sales.Application.Events;
 using NerdStore.Sales.Domain;
 using NerdStore.Sales.Domain.Repository;
 
@@ -19,7 +20,7 @@ namespace NerdStore.Sales.Application.Commands
         {
             _orderRepository.Add(Order.OrderFactory.NewOrderDraft(message.ClientId));
 
-            _mediator.Publish(message);
+            _mediator.Publish(new AddedOrderItemEvent());
 
             return true;
         }
