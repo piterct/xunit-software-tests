@@ -19,7 +19,6 @@ namespace NerdStore.Sales.Application.Events
                 NameProduct = nameProduct;
                 UnitValue = unitValue;
                 Quantity = quantity;
-
         }
     }
 }
