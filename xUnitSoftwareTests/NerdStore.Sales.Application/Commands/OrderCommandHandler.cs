@@ -5,7 +5,7 @@ using NerdStore.Sales.Domain.Repository;
 
 namespace NerdStore.Sales.Application.Commands
 {
-    public class OrderCommandHandler
+    public class OrderCommandHandler: IRequest<AddItemOrderCommand>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMediator _mediator;
