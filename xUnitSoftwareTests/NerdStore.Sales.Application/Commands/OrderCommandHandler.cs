@@ -5,7 +5,7 @@ using NerdStore.Sales.Domain.Repository;
 
 namespace NerdStore.Sales.Application.Commands
 {
-    public class OrderCommandHandler: IRequest<AddItemOrderCommand>
+    public class OrderCommandHandler : IRequestHandler<AddItemOrderCommand, bool>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMediator _mediator;
@@ -16,11 +16,12 @@ namespace NerdStore.Sales.Application.Commands
             _mediator = mediator;
         }
 
-        public bool Handle(AddItemOrderCommand message)
+
+        public async Task<bool> Handle(AddItemOrderCommand message, CancellationToken cancellationToken)
         {
             _orderRepository.Add(Order.OrderFactory.NewOrderDraft(message.ClientId));
 
-            _mediator.Publish(new AddedOrderItemEvent());
+            await _mediator.Publish(new AddedOrderItemEvent(), cancellationToken);
 
             return true;
         }
