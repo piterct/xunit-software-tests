@@ -20,7 +20,7 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
             var mocker = new AutoMocker();
             var orderHandler = mocker.CreateInstance<OrderCommandHandler>();
 
-            // Assert
+            // Act
             var result = await orderHandler.Handle(orderCommand, CancellationToken.None);
 
             //Assert
