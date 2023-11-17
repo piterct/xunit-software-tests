@@ -42,7 +42,7 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
         }
 
         [Fact(DisplayName = "Add Item Command units above allowed")]
-        [Trait("Categoria", "Sales - Order Commands")]
+        [Trait("Category", "Sales - Order Commands")]
         public void AddItemOrderCommand_UnitQuantityAboveAllowed_MustNotPassAtValidation()
         {
             // Arrange
