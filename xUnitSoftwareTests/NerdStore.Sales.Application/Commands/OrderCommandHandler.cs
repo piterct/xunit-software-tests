@@ -1,4 +1,5 @@
-﻿using NerdStore.Sales.Domain;
+﻿using MediatR;
+using NerdStore.Sales.Domain;
 using NerdStore.Sales.Domain.Repository;
 
 namespace NerdStore.Sales.Application.Commands
@@ -6,15 +7,20 @@ namespace NerdStore.Sales.Application.Commands
     public class OrderCommandHandler
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IMediator _mediator;
 
-        public OrderCommandHandler(IOrderRepository orderRepository)
+        public OrderCommandHandler(IOrderRepository orderRepository, IMediator mediator)
         {
             _orderRepository = orderRepository;
+            _mediator = mediator;
         }
 
         public bool Handle(AddItemOrderCommand message)
         {
             _orderRepository.Add(Order.OrderFactory.NewOrderDraft(message.ClientId));
+
+            _mediator.Publish(message);
+
             return true;
         }
     }
