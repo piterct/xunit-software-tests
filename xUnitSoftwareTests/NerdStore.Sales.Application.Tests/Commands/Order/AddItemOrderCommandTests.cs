@@ -1,5 +1,4 @@
 ﻿using NerdStore.Sales.Application.Commands;
-using NerdStore.Sales.Domain;
 using Xunit;
 
 namespace NerdStore.Sales.Application.Tests.Commands.Order
