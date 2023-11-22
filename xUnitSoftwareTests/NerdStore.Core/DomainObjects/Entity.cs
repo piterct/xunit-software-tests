@@ -21,6 +21,11 @@ namespace NerdStore.Core.DomainObjects
 
         public void RemoveEvent(Event eventValue)
         {
+            _notifications?.Remove(eventValue);
+        }
+
+        public void ClearEvents()
+        {
             _notifications?.Clear();
         }
 
