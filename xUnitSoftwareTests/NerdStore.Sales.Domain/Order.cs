@@ -3,7 +3,7 @@ using NerdStore.Core.DomainObjects;
 
 namespace NerdStore.Sales.Domain
 {
-    public class Order : Entity
+    public class Order : Entity, IAggregateRoot
     {
         public static int MAX_UNITS_ITEM => 15;
         public static int MIN_UNITS_ITEM => 1;
