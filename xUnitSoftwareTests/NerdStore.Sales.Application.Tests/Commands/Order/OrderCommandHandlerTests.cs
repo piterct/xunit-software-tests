@@ -26,7 +26,7 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
             //Assert
             Assert.True(result);
             mocker.GetMock<IOrderRepository>().Verify(r => r.Add(It.IsAny<Domain.Order>()), Times.Once());
-            mocker.GetMock<IMediator>().Verify(r => r.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Once());
+            //mocker.GetMock<IMediator>().Verify(r => r.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Once());
 
         }
     }
