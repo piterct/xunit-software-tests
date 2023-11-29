@@ -61,6 +61,8 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
 
             //Assert
             Assert.True(result);
+            mocker.GetMock<IOrderRepository>().Verify(r => r.Add(It.IsAny<Domain.Order>()), Times.Once());
+            mocker.GetMock<IOrderRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once());
         }
     }
 }
