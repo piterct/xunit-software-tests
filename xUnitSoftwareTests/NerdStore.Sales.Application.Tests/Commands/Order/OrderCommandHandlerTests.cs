@@ -104,11 +104,13 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
         public async Task AddItem__InvalidCommand__MustReturnFalseAndToThrowEventNotification()
         {
             //Arrange
-
             var orderCommand = new AddItemOrderCommand(Guid.Empty, Guid.Empty, "", 0, 0);
 
             var mocker = new AutoMocker();
             var orderHandler = mocker.CreateInstance<OrderCommandHandler>();
+
+            //Act
+            var result = orderHandler.Handle(orderCommand, CancellationToken.None);
 
         }
     }
