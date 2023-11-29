@@ -32,5 +32,13 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
             //mocker.GetMock<IMediator>().Verify(r => r.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Once());
 
         }
+
+        [Fact(DisplayName = "Add new order item draft with successful")]
+        [Trait("Category", "Sales - Order Command Handler")]
+        public async Task AddItem__NewOrderItemToDraftOrder__MustExecuteSuccessful()
+        {
+        
+
+        }
     }
 }
