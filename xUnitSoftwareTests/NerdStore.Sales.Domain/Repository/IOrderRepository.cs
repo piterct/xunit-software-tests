@@ -6,7 +6,7 @@ namespace NerdStore.Sales.Domain.Repository
     {
         void Add(Order order);
         void Update(Order order);
-        Task<Order> GetDraftOrderByClientId(Guid clientId);
+        Task<Order?> GetDraftOrderByClientId(Guid clientId);
         void AddItem(OrderItem orderItem);
 
     }
