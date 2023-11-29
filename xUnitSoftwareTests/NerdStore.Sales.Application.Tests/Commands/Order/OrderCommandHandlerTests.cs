@@ -110,8 +110,11 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
             var orderHandler = mocker.CreateInstance<OrderCommandHandler>();
 
             //Act
-            var result = orderHandler.Handle(orderCommand, CancellationToken.None);
+            var result = await orderHandler.Handle(orderCommand, CancellationToken.None);
 
+            //Assert
+            Assert.False(result);
+            mocker.GetMock<IMediator>().Verify(m => m.Publish(It.IsAny<INotification>(),CancellationToken.None), Times.Exactly(5));
         }
     }
 }
