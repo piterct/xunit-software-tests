@@ -85,7 +85,10 @@ namespace NerdStore.Sales.Domain
             if (ExistsOrderItem(item))
             {
                 var existingItem = _orderItems.FirstOrDefault(p => p.ProductId == item.ProductId);
-                quantityItems += existingItem.Quantity;
+                if (existingItem != null)
+                {
+                    quantityItems += existingItem.Quantity;
+                }
             }
 
             if (quantityItems > MAX_UNITS_ITEM) throw new DomainException($"Maximum of {MAX_UNITS_ITEM} units per product");
@@ -99,9 +102,12 @@ namespace NerdStore.Sales.Domain
             {
                 var existingItem = _orderItems.FirstOrDefault(p => p.ProductId == orderItem.ProductId);
 
-                existingItem.AddUnit(orderItem.Quantity);
-                orderItem = existingItem;
-                _orderItems.Remove(existingItem);
+                if (existingItem != null)
+                {
+                    existingItem.AddUnit(orderItem.Quantity);
+                    orderItem = existingItem;
+                    _orderItems.Remove(existingItem);
+                }
             }
 
             _orderItems.Add(orderItem);
@@ -115,7 +121,11 @@ namespace NerdStore.Sales.Domain
 
             var existItem = OrderItems.FirstOrDefault(p => p.ProductId == orderItem.ProductId);
 
-            _orderItems.Remove(existItem);
+            if (existItem != null)
+            {
+                _orderItems.Remove(existItem);
+            }
+
             _orderItems.Add(orderItem);
 
             CalculateValueOrder();
