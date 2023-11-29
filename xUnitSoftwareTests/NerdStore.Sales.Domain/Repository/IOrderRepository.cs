@@ -5,5 +5,6 @@ namespace NerdStore.Sales.Domain.Repository
     public interface IOrderRepository : IRepository<Order>
     {
         void Add(Order order);
+        Task<Order> GetDraftOrderByClientId(Guid id);
     }
 }
