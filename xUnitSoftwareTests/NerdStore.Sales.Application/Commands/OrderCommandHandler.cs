@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using NerdStore.Core.DomainObjects;
+using NerdStore.Core.Messages;
 using NerdStore.Sales.Application.Events;
 using NerdStore.Sales.Domain;
 using NerdStore.Sales.Domain.Repository;
+using System.Threading;
 
 namespace NerdStore.Sales.Application.Commands
 {
@@ -20,16 +22,8 @@ namespace NerdStore.Sales.Application.Commands
 
         public async Task<bool> Handle(AddItemOrderCommand message, CancellationToken cancellationToken)
         {
-            if (!message.IsValid())
-            {
-                foreach(var error in message.ValidationResult.Errors)
-                {
-                    await _mediator.Publish(new DomainNotification(message.MessageType, error.ErrorMessage), cancellationToken);
-                }
-
-                return false;
-            }
-
+            if (!ValidateCommand(message)) return false;
+            
             var order = await _orderRepository.GetDraftOrderByClientId(message.ClientId);
             var orderItem = new OrderItem(message.ProductId, message.Name, message.Quantity, message.UnitValue);
 
@@ -60,6 +54,18 @@ namespace NerdStore.Sales.Application.Commands
                 message.Name, message.UnitValue, message.Quantity));
 
             return await _orderRepository.UnitOfWork.Commit();
+        }
+
+        private bool ValidateCommand(Command message)
+        {
+            if(message.IsValid()) return true;
+
+            foreach (var error in message.ValidationResult.Errors)
+            {
+                 _mediator.Publish(new DomainNotification(message.MessageType, error.ErrorMessage));
+            }
+
+            return false;
         }
     }
 }
