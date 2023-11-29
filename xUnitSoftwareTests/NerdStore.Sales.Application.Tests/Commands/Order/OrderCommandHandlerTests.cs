@@ -65,5 +65,14 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
             mocker.GetMock<IOrderRepository>().Verify(r => r.Update(It.IsAny<Domain.Order>()), Times.Once());
             mocker.GetMock<IOrderRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once());
         }
+
+
+        [Fact(DisplayName = "Add exist order item draft with successful")]
+        [Trait("Category", "Sales - Order Command Handler")]
+        public async Task AddItem__ExistOrderItemToDraftOrder__MustExecuteSuccessful()
+        {
+
+           
+        }
     }
 }
