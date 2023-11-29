@@ -91,6 +91,12 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
 
             //Act
             var result = await orderHandler.Handle(orderCommand, CancellationToken.None);
+
+            //Assert
+            Assert.True(result);
+            mocker.GetMock<IOrderRepository>().Verify(r => r.UpdateItem(It.IsAny<OrderItem>()), Times.Once());
+            mocker.GetMock<IOrderRepository>().Verify(r => r.Update(It.IsAny<Domain.Order>()), Times.Once());
+            mocker.GetMock<IOrderRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once());
         }
     }
 }
