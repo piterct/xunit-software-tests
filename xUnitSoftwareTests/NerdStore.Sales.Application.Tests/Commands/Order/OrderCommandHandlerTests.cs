@@ -88,6 +88,9 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
             mocker.GetMock<IOrderRepository>()
                 .Setup(r => r.GetDraftOrderByClientId(clientId)).Returns(Task.FromResult(order));
             mocker.GetMock<IOrderRepository>().Setup(r => r.UnitOfWork.Commit()).Returns(Task.FromResult(true));
+
+            //Act
+            var result = await orderHandler.Handle(orderCommand, CancellationToken.None);
         }
     }
 }
