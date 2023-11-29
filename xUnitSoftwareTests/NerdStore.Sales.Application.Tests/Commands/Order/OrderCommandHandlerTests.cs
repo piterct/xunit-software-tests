@@ -2,8 +2,10 @@
 using Moq;
 using Moq.AutoMock;
 using NerdStore.Sales.Application.Commands;
+using NerdStore.Sales.Domain;
 using NerdStore.Sales.Domain.Repository;
 using Xunit;
+using static NerdStore.Sales.Domain.Order;
 
 namespace NerdStore.Sales.Application.Tests.Commands.Order
 {
@@ -38,6 +40,12 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
         public async Task AddItem__NewOrderItemToDraftOrder__MustExecuteSuccessful()
         {
         
+            //Arrange 
+            var clientId = Guid.NewGuid();
+
+            var order = OrderFactory.NewOrderDraft(clientId);
+            var existOrderItem = new OrderItem(Guid.NewGuid(), "Test Product", 2, 100);
+            order.AddItem(existOrderItem);
 
         }
     }
