@@ -59,6 +59,8 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
             //Act
             var result = await orderHandler.Handle(orderCommand, CancellationToken.None);
 
+            //Assert
+            Assert.True(result);
         }
     }
 }
