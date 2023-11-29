@@ -47,6 +47,18 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
             var existOrderItem = new OrderItem(Guid.NewGuid(), "Test Product", 2, 100);
             order.AddItem(existOrderItem);
 
+            var orderCommand = new AddItemOrderCommand(clientId, Guid.NewGuid(), "Expensive Product", 2, 100);
+
+            var mocker = new AutoMocker();
+            var orderHandler = mocker.CreateInstance<OrderCommandHandler>();
+
+            mocker.GetMock<IOrderRepository>()
+                .Setup(r => r.GetDraftOrderByClientId(clientId)).Returns(Task.FromResult(order));
+            mocker.GetMock<IOrderRepository>().Setup(r => r.UnitOfWork.Commit()).Returns(Task.FromResult(true));
+
+            //Act
+            var result = await orderHandler.Handle(orderCommand, CancellationToken.None);
+
         }
     }
 }
