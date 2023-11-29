@@ -24,14 +24,24 @@ namespace NerdStore.Sales.Application.Commands
 
             if (order == null)
             {
-                 order = Order.OrderFactory.NewOrderDraft(message.ClientId);
-                 order.AddItem(orderItem);
-                 _orderRepository.Add(order);
+                order = Order.OrderFactory.NewOrderDraft(message.ClientId);
+                order.AddItem(orderItem);
+                _orderRepository.Add(order);
             }
             else
             {
+                var orderItemExist = order.ExistsOrderItem(orderItem);
                 order.AddItem(orderItem);
-                _orderRepository.AddItem(orderItem);
+
+                if (orderItemExist)
+                {
+                    _orderRepository.UpdateItem(order.OrderItems.First(p => p.ProductId == orderItem.ProductId));
+                }
+                else
+                {
+                    _orderRepository.AddItem(orderItem);
+                }
+
                 _orderRepository.Update(order);
             }
 
