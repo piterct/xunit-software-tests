@@ -4,7 +4,6 @@ using NerdStore.Core.Messages;
 using NerdStore.Sales.Application.Events;
 using NerdStore.Sales.Domain;
 using NerdStore.Sales.Domain.Repository;
-using System.Threading;
 
 namespace NerdStore.Sales.Application.Commands
 {
