@@ -4,9 +4,7 @@ using Moq.AutoMock;
 using NerdStore.Sales.Application.Commands;
 using NerdStore.Sales.Domain;
 using NerdStore.Sales.Domain.Repository;
-using System.Net.Sockets;
 using Xunit;
-using static NerdStore.Sales.Domain.Order;
 
 namespace NerdStore.Sales.Application.Tests.Commands.Order
 {
