@@ -51,12 +51,11 @@ namespace NerdStore.Sales.Domain.Tests
         public void AddOrderItem__ItemAboveAllowable__MustReturnException()
         {
             // Arrange
-            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
             var productId = Guid.NewGuid();
             var orderItem = new OrderItem(productId, "Test Product", Order.MAX_UNITS_ITEM + 1, 100);
 
             // Act & Assert
-            Assert.Throws<DomainException>(() => order.AddItem(orderItem));
+            Assert.Throws<DomainException>(() => _order.AddItem(orderItem));
 
         }
 
