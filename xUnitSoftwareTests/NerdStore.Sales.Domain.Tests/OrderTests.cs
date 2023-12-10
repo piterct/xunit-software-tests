@@ -182,12 +182,11 @@ namespace NerdStore.Sales.Domain.Tests
         public void Order__AplyValidVoucher__MustReturnWithoutErrors()
         {
             // Arrange
-            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
             var voucher = new Voucher("OFF-15", null, 15, 1, ETypeOfDiscountVoucher.Value, DateTime.Now.AddDays(15),
                 true, false);
 
             // Act
-            var result = order.ApplyVoucher(voucher);
+            var result = _order.ApplyVoucher(voucher);
 
             //Assert
             Assert.True(result.IsValid);
