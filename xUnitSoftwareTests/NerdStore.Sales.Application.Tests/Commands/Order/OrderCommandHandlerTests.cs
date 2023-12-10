@@ -11,6 +11,8 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
 {
     public class OrderCommandHandlerTests
     {
+        private readonly AutoMocker _mocker;
+        private readonly OrderCommandHandler _orderCommandHandler;
 
         [Fact(DisplayName = "Add new item order successful")]
         [Trait("Category", "Sales - Order Command Handler")]
