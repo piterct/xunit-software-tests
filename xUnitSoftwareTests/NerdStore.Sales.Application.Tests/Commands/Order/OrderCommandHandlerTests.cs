@@ -14,6 +14,7 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
     {
         private readonly Guid _clientId;
         private readonly Guid _productId;
+        private readonly Domain.Order _order;
         private readonly AutoMocker _mocker;
         private readonly OrderCommandHandler _orderCommandHandler;
 
@@ -24,6 +25,8 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
 
             _clientId = Guid.NewGuid();
             _productId = Guid.NewGuid();
+
+            _order = Domain.Order.OrderFactory.NewOrderDraft(_clientId);
         }
 
         [Fact(DisplayName = "Add new item order successful")]
@@ -51,14 +54,13 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
         public async Task AddItem__NewOrderItemToDraftOrder__MustExecuteSuccessful()
         {
             //Arrange 
-            var order = OrderFactory.NewOrderDraft(_clientId);
             var existOrderItem = new OrderItem(Guid.NewGuid(), "Test Product", 2, 100);
-            order.AddItem(existOrderItem);
+            _order.AddItem(existOrderItem);
 
             var orderCommand = new AddItemOrderCommand(_clientId, Guid.NewGuid(), "Expensive Product", 2, 100);
 
             _mocker.GetMock<IOrderRepository>()
-                .Setup(r => r.GetDraftOrderByClientId(_clientId)).Returns(Task.FromResult(order));
+                .Setup(r => r.GetDraftOrderByClientId(_clientId)).Returns(Task.FromResult(_order));
             _mocker.GetMock<IOrderRepository>().Setup(r => r.UnitOfWork.Commit()).Returns(Task.FromResult(true));
 
             //Act
