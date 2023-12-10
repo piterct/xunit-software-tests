@@ -238,24 +238,22 @@ namespace NerdStore.Sales.Domain.Tests
         public void AplyVoucher__VoucherTypeOfDiscountPercentage_MustDiscountOfValueTotal()
         {
             // Arrange
-            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
-
             var orderItem1 = new OrderItem(Guid.NewGuid(), "Product Xpto", 2, 100);
             var orderItem2 = new OrderItem(Guid.NewGuid(), "Product Test", 3, 15);
-            order.AddItem(orderItem1);
-            order.AddItem(orderItem2);
+            _order.AddItem(orderItem1);
+            _order.AddItem(orderItem2);
 
             var voucher = new Voucher("OFF-15", 15, null, 1, ETypeOfDiscountVoucher.Percentage, DateTime.Now.AddDays(10),
                 true, false);
 
-            var valueDiscount = (order.TotalValue * voucher.DiscountPercentage) / 100;
-            var valueTotalWithDiscount = order.TotalValue - valueDiscount;
+            var valueDiscount = (_order.TotalValue * voucher.DiscountPercentage) / 100;
+            var valueTotalWithDiscount = _order.TotalValue - valueDiscount;
 
             // Act
-            order.ApplyVoucher(voucher);
+            _order.ApplyVoucher(voucher);
 
             //Assert
-            Assert.Equal(valueTotalWithDiscount, order.TotalValue);
+            Assert.Equal(valueTotalWithDiscount, _order.TotalValue);
 
         }
 
