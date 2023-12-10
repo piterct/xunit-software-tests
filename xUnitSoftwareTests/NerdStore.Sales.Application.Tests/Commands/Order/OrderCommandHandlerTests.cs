@@ -105,15 +105,12 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
             //Arrange
             var orderCommand = new AddItemOrderCommand(Guid.Empty, Guid.Empty, "", 0, 0);
 
-            var mocker = new AutoMocker();
-            var orderHandler = mocker.CreateInstance<OrderCommandHandler>();
-
             //Act
-            var result = await orderHandler.Handle(orderCommand, CancellationToken.None);
+            var result = await _orderCommandHandler.Handle(orderCommand, CancellationToken.None);
 
             //Assert
             Assert.False(result);
-            mocker.GetMock<IMediator>().Verify(m => m.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Exactly(5));
+            _mocker.GetMock<IMediator>().Verify(m => m.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Exactly(5));
         }
     }
 }
