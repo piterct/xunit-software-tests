@@ -5,12 +5,21 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
 {
     public class AddItemOrderCommandTests
     {
+        private readonly Guid _clientId;
+        private readonly Guid _productId;
+
+        public AddItemOrderCommandTests()
+        {
+            _clientId = Guid.NewGuid();
+            _productId = Guid.NewGuid();
+        }
+
         [Fact(DisplayName = "Add Item valid command ")]
         [Trait("Category", "Sales - Order Commands")]
         public void AddItemOrderCommand__CommandMustBeValid__MustWorkAtValidation()
         {
             // Arrange
-            var oderItemCommand = new AddItemOrderCommand(Guid.NewGuid(), Guid.NewGuid(), "Test Product", 2, 100);
+            var oderItemCommand = new AddItemOrderCommand(_clientId, _productId, "Test Product", 2, 100);
 
             // Act
             var result = oderItemCommand.IsValid();
