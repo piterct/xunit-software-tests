@@ -161,20 +161,19 @@ namespace NerdStore.Sales.Domain.Tests
         public void RemoveOrderItem__ItemExistsInTheList__MustUpdateTotalValue()
         {
             // Arrange
-            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
             var productId = Guid.NewGuid();
             var orderItem1 = new OrderItem(Guid.NewGuid(), "Xpto Product", 2, 100);
             var orderItem2 = new OrderItem(productId, "Xpto Product", 3, 15);
-            order.AddItem(orderItem1);
-            order.AddItem(orderItem2);
+            _order.AddItem(orderItem1);
+            _order.AddItem(orderItem2);
 
             var orderTotalValue = orderItem2.Quantity * orderItem2.UnitValue;
 
             // Act & Assert
-            order.RemoveItem(orderItem1);
+            _order.RemoveItem(orderItem1);
 
             //Assert
-            Assert.Equal(orderTotalValue, order.TotalValue);
+            Assert.Equal(orderTotalValue, _order.TotalValue);
 
         }
 
