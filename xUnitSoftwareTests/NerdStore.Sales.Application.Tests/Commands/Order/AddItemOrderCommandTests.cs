@@ -7,6 +7,7 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
     {
         private readonly Guid _clientId;
         private readonly Guid _productId;
+        private readonly Guid _clientIdEmpty;
 
         public AddItemOrderCommandTests()
         {
@@ -54,8 +55,8 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
         public void AddItemOrderCommand_UnitQuantityAboveAllowed_MustNotPassAtValidation()
         {
             // Arrange
-            var pedidoCommand = new AddItemOrderCommand(Guid.NewGuid(),
-                Guid.NewGuid(), "Produto Teste", Domain.Order.MAX_UNITS_ITEM + 1, 100);
+            var pedidoCommand = new AddItemOrderCommand(_clientId,
+                _productId, "Produto Teste", Domain.Order.MAX_UNITS_ITEM + 1, 100);
 
             // Act
             var result = pedidoCommand.IsValid();
