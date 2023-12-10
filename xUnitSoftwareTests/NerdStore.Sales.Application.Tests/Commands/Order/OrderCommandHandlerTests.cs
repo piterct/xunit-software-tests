@@ -4,6 +4,7 @@ using Moq.AutoMock;
 using NerdStore.Sales.Application.Commands;
 using NerdStore.Sales.Domain;
 using NerdStore.Sales.Domain.Repository;
+using System.Net.Sockets;
 using Xunit;
 using static NerdStore.Sales.Domain.Order;
 
@@ -13,6 +14,12 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
     {
         private readonly AutoMocker _mocker;
         private readonly OrderCommandHandler _orderCommandHandler;
+
+        public OrderCommandHandlerTests()
+        {
+            _mocker = new AutoMocker();
+            _orderCommandHandler = _mocker.CreateInstance<OrderCommandHandler>();
+        }
 
         [Fact(DisplayName = "Add new item order successful")]
         [Trait("Category", "Sales - Order Command Handler")]
