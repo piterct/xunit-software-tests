@@ -16,14 +16,13 @@ namespace NerdStore.Sales.Domain.Tests
         public void AddOrderItem__NewOrder_MustUpdateValue()
         {
             // Arrange
-            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
             var orderItem = new OrderItem(Guid.NewGuid(), "Test Product", 2, 100);
 
             // Act
-            order.AddItem(orderItem);
+            _order.AddItem(orderItem);
 
             // Assert
-            Assert.Equal(200, order.TotalValue);
+            Assert.Equal(200, _order.TotalValue);
         }
 
         [Fact(DisplayName = "Add existing order item ")]
