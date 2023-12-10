@@ -5,6 +5,11 @@ namespace NerdStore.Sales.Domain.Tests
 {
     public class OrderTests
     {
+        private readonly Order _order;
+        public OrderTests()
+        {
+            _order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
+        }
 
         [Fact(DisplayName = "Add New Order Item ")]
         [Trait("Category", "Sales - Order")]
