@@ -199,12 +199,11 @@ namespace NerdStore.Sales.Domain.Tests
         public void Order__AplyInvalidValidVoucher__MustReturnWithErrors()
         {
             // Arrange
-            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
             var voucher = new Voucher("OFF-15", null, 15, 1, ETypeOfDiscountVoucher.Value, DateTime.Now.AddDays(-1),
                 true, true);
 
             // Act
-            var result = order.ApplyVoucher(voucher);
+            var result = _order.ApplyVoucher(voucher);
 
             //Assert
             Assert.False(result.IsValid);
