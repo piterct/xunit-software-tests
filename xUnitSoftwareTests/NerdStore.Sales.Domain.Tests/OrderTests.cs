@@ -30,20 +30,19 @@ namespace NerdStore.Sales.Domain.Tests
         public void AddOrderItem__ExistingOrderItem_MustIncrementItemsAndSumValues()
         {
             // Arrange
-            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
             var productId = Guid.NewGuid();
             var orderItem = new OrderItem(productId, "Test Product", 2, 100);
-            order.AddItem(orderItem);
+            _order.AddItem(orderItem);
 
             var orderItem2 = new OrderItem(productId, "Test Product", 1, 100);
 
             // Act
-            order.AddItem(orderItem2);
+            _order.AddItem(orderItem2);
 
             // Assert
-            Assert.Equal(300, order.TotalValue);
-            Assert.Equal(1, order.OrderItems.Count);
-            Assert.Equal(3, order.OrderItems.FirstOrDefault(P => P.ProductId == productId).Quantity);
+            Assert.Equal(300, _order.TotalValue);
+            Assert.Equal(1, _order.OrderItems.Count);
+            Assert.Equal(3, _order.OrderItems.FirstOrDefault(P => P.ProductId == productId).Quantity);
         }
 
 
