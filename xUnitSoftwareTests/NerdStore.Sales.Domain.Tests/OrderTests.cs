@@ -64,14 +64,13 @@ namespace NerdStore.Sales.Domain.Tests
         public void AddOrderItem__ExistingItemUnitAndSumAboveAllowable__MustReturnException()
         {
             // Arrange
-            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
             var productId = Guid.NewGuid();
             var orderItem = new OrderItem(productId, "Test Product", 1, 100);
             var orderItem2 = new OrderItem(productId, "Test Product", Order.MAX_UNITS_ITEM, 100);
-            order.AddItem(orderItem);
+            _order.AddItem(orderItem);
 
             // Act & Assert
-            Assert.Throws<DomainException>(() => order.AddItem(orderItem2));
+            Assert.Throws<DomainException>(() => _order.AddItem(orderItem2));
 
         }
 
@@ -80,11 +79,10 @@ namespace NerdStore.Sales.Domain.Tests
         public void UpdateOrderItem__ItemDoesNotExistsInTheList__MustReturnException()
         {
             // Arrange
-            var order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
             var orderItem = new OrderItem(Guid.NewGuid(), "Test Product", 1, 100);
 
             // Act & Assert
-            Assert.Throws<DomainException>(() => order.UpdateItem(orderItem));
+            Assert.Throws<DomainException>(() => _order.UpdateItem(orderItem));
 
         }
 
