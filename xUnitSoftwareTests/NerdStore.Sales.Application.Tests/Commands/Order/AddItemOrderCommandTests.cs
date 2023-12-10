@@ -8,11 +8,15 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
         private readonly Guid _clientId;
         private readonly Guid _productId;
         private readonly Guid _clientIdEmpty;
+        private readonly Guid _productIdEmpty;
 
         public AddItemOrderCommandTests()
         {
             _clientId = Guid.NewGuid();
             _productId = Guid.NewGuid();
+            _clientIdEmpty = Guid.Empty;
+            _productIdEmpty = Guid.Empty;
+
         }
 
         [Fact(DisplayName = "Add Item valid command ")]
@@ -35,8 +39,8 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
         public void AddItemOrderCommand_CommandMustBeInvalid_MustNotPassAtValidation()
         {
             // Arrange
-            var orderCommand = new AddItemOrderCommand(Guid.Empty,
-                Guid.Empty, "", 0, 0);
+            var orderCommand = new AddItemOrderCommand(_clientIdEmpty,
+                _productIdEmpty, "", 0, 0);
 
             // Act
             var result = orderCommand.IsValid();
