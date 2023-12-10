@@ -34,7 +34,7 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
         public async Task AddItem__NewOrder__MustExecuteSuccessful()
         {
             // Arrange
-            var orderCommand = new AddItemOrderCommand(Guid.NewGuid(), Guid.NewGuid(), "Test Product", 2, 100);
+            var orderCommand = new AddItemOrderCommand(_clientId, _productId, "Test Product", 2, 100);
 
             _mocker.GetMock<IOrderRepository>().Setup(r => r.UnitOfWork.Commit()).Returns(Task.FromResult(true));
 
