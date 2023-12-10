@@ -12,6 +12,8 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
 {
     public class OrderCommandHandlerTests
     {
+        private readonly Guid _clientId;
+        private readonly Guid _productId;
         private readonly AutoMocker _mocker;
         private readonly OrderCommandHandler _orderCommandHandler;
 
@@ -19,6 +21,9 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
         {
             _mocker = new AutoMocker();
             _orderCommandHandler = _mocker.CreateInstance<OrderCommandHandler>();
+
+            _clientId = Guid.NewGuid();
+            _productId = Guid.NewGuid();
         }
 
         [Fact(DisplayName = "Add new item order successful")]
