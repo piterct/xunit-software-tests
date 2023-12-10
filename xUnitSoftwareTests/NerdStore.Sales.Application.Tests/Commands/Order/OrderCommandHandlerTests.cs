@@ -45,7 +45,6 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
         [Trait("Category", "Sales - Order Command Handler")]
         public async Task AddItem__NewOrderItemToDraftOrder__MustExecuteSuccessful()
         {
-
             //Arrange 
             var clientId = Guid.NewGuid();
 
@@ -55,21 +54,18 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
 
             var orderCommand = new AddItemOrderCommand(clientId, Guid.NewGuid(), "Expensive Product", 2, 100);
 
-            var mocker = new AutoMocker();
-            var orderHandler = mocker.CreateInstance<OrderCommandHandler>();
-
-            mocker.GetMock<IOrderRepository>()
+            _mocker.GetMock<IOrderRepository>()
                 .Setup(r => r.GetDraftOrderByClientId(clientId)).Returns(Task.FromResult(order));
-            mocker.GetMock<IOrderRepository>().Setup(r => r.UnitOfWork.Commit()).Returns(Task.FromResult(true));
+            _mocker.GetMock<IOrderRepository>().Setup(r => r.UnitOfWork.Commit()).Returns(Task.FromResult(true));
 
             //Act
-            var result = await orderHandler.Handle(orderCommand, CancellationToken.None);
+            var result = await _orderCommandHandler.Handle(orderCommand, CancellationToken.None);
 
             //Assert
             Assert.True(result);
-            mocker.GetMock<IOrderRepository>().Verify(r => r.AddItem(It.IsAny<OrderItem>()), Times.Once());
-            mocker.GetMock<IOrderRepository>().Verify(r => r.Update(It.IsAny<Domain.Order>()), Times.Once());
-            mocker.GetMock<IOrderRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once());
+            _mocker.GetMock<IOrderRepository>().Verify(r => r.AddItem(It.IsAny<OrderItem>()), Times.Once());
+            _mocker.GetMock<IOrderRepository>().Verify(r => r.Update(It.IsAny<Domain.Order>()), Times.Once());
+            _mocker.GetMock<IOrderRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once());
         }
 
 
