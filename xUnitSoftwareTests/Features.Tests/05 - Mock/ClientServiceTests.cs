@@ -25,9 +25,8 @@ namespace Features.Tests
         {
             // Arrange
             var client = _clientBogusTestsFixture.GenerateValidNewClient();
-            var mediator = new Mock<IMediator>();
 
-            var clientService = new ClientService(_clientRepositoryMock.Object, mediator.Object);
+            var clientService = new ClientService(_clientRepositoryMock.Object, _mediatorMock.Object);
 
             //Act
             clientService.Add(client);
@@ -35,7 +34,7 @@ namespace Features.Tests
             // Assert
             Assert.True(client.IsValid());
             _clientRepositoryMock.Verify(r => r.Add(client), Times.Once);
-            mediator.Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Once);
+            _mediatorMock.Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Once);
         }
 
         [Fact(DisplayName = "Add Client UnSuccessful")]
