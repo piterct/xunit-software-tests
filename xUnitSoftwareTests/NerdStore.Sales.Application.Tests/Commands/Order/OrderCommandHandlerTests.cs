@@ -12,6 +12,8 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
     {
         private readonly Guid _clientId;
         private readonly Guid _productId;
+        private readonly Guid _clientIdEmpty;
+        private readonly Guid _productIdEmpty;
         private readonly Domain.Order _order;
         private readonly AutoMocker _mocker;
         private readonly OrderCommandHandler _orderCommandHandler;
@@ -23,6 +25,8 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
 
             _clientId = Guid.NewGuid();
             _productId = Guid.NewGuid();
+            _clientIdEmpty = Guid.Empty;
+            _productIdEmpty = Guid.Empty;
 
             _order = Domain.Order.OrderFactory.NewOrderDraft(_clientId);
         }
@@ -101,7 +105,7 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
         public async Task AddItem__InvalidCommand__MustReturnFalseAndToThrowEventNotification()
         {
             //Arrange
-            var orderCommand = new AddItemOrderCommand(Guid.Empty, Guid.Empty, "", 0, 0);
+            var orderCommand = new AddItemOrderCommand(_clientIdEmpty, _productIdEmpty, "", 0, 0);
 
             //Act
             var result = await _orderCommandHandler.Handle(orderCommand, CancellationToken.None);
