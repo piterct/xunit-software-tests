@@ -58,7 +58,7 @@ namespace Features.Tests
 
             var client = new Faker<Client>("pt_BR")
                 .CustomInstantiator(f => new Client(
-                    Guid.NewGuid(),
+                    _clientId,
                     f.Name.FirstName(gender),
                     f.Name.LastName(gender),
                     f.Date.Past(1, DateTime.Now.AddDays(-1)),
