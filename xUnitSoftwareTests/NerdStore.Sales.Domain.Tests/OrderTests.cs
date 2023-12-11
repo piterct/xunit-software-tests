@@ -159,9 +159,8 @@ namespace NerdStore.Sales.Domain.Tests
         public void RemoveOrderItem__ItemExistsInTheList__MustUpdateTotalValue()
         {
             // Arrange
-            var productId = Guid.NewGuid();
             var orderItem1 = new OrderItem(Guid.NewGuid(), "Xpto Product", 2, 100);
-            var orderItem2 = new OrderItem(productId, "Xpto Product", 3, 15);
+            var orderItem2 = new OrderItem(_productId, "Xpto Product", 3, 15);
             _order.AddItem(orderItem1);
             _order.AddItem(orderItem2);
 
@@ -172,7 +171,6 @@ namespace NerdStore.Sales.Domain.Tests
 
             //Assert
             Assert.Equal(orderTotalValue, _order.TotalValue);
-
         }
 
         [Fact(DisplayName = "Apply valid voucher")]
@@ -188,7 +186,6 @@ namespace NerdStore.Sales.Domain.Tests
 
             //Assert
             Assert.True(result.IsValid);
-
         }
 
 
