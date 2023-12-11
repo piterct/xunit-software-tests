@@ -6,9 +6,11 @@ namespace NerdStore.Sales.Domain.Tests
     public class OrderTests
     {
         private readonly Order _order;
+        private readonly Guid _productId;
         public OrderTests()
         {
             _order = Order.OrderFactory.NewOrderDraft(Guid.NewGuid());
+            _productId = Guid.NewGuid();
         }
 
         [Fact(DisplayName = "Add New Order Item ")]
@@ -16,7 +18,7 @@ namespace NerdStore.Sales.Domain.Tests
         public void AddOrderItem__NewOrder_MustUpdateValue()
         {
             // Arrange
-            var orderItem = new OrderItem(Guid.NewGuid(), "Test Product", 2, 100);
+            var orderItem = new OrderItem(_productId, "Test Product", 2, 100);
 
             // Act
             _order.AddItem(orderItem);
