@@ -43,17 +43,15 @@ namespace Features.Tests
         {
             // Arrange
             var client = _clientBogusTestsFixture.GenerateInvalidClient();
-            var clientRepo = new Mock<IClientRepository>();
             var mediator = new Mock<IMediator>();
-
-            var clientService = new ClientService(clientRepo.Object, mediator.Object);
+            var clientService = new ClientService(_clientRepositoryMock.Object, mediator.Object);
 
             //Act
             clientService.Add(client);
 
             // Assert
             Assert.False(client.IsValid());
-            clientRepo.Verify(r => r.Add(client), Times.Never);
+            _clientRepositoryMock.Verify(r => r.Add(client), Times.Never);
             mediator.Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Never);
         }
 
