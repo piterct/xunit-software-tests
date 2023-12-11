@@ -276,7 +276,7 @@ namespace NerdStore.Sales.Domain.Tests
         public void AplyVoucher__ModifiedItemsOrder__MustRecalculateDiscountTotalValue()
         {
             // Arrange
-            var orderItem1 = new OrderItem(Guid.NewGuid(), "Xpto Product ", 2, 100);
+            var orderItem1 = new OrderItem(_productId, "Xpto Product ", 2, 100);
             _order.AddItem(orderItem1);
 
             var voucher = new Voucher("OFF-15", null, 300, 1, ETypeOfDiscountVoucher.Value, DateTime.Now.AddDays(10),
@@ -284,11 +284,10 @@ namespace NerdStore.Sales.Domain.Tests
 
             _order.ApplyVoucher(voucher);
 
-            var orderItem2 = new OrderItem(Guid.NewGuid(), "Test Product", 4, 25);
+            var orderItem2 = new OrderItem(_productId, "Test Product", 4, 25);
 
             // Act
             _order.AddItem(orderItem2);
-
 
             //Assert
             var expectedValue = _order._orderItems.Sum(i => i.Quantity * i.UnitValue) - voucher.DiscountValue;
