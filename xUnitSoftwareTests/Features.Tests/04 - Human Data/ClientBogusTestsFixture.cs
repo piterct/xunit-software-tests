@@ -36,13 +36,11 @@ namespace Features.Tests
         public IEnumerable<Client> GenerateClients(int quantity, bool active)
         {
 
-            var gender = new Faker().PickRandom<Name.Gender>();
-
             var clients = new Faker<Client>("pt_BR")
                 .CustomInstantiator(f => new Client(
                     _clientId,
-                    f.Name.FirstName(gender),
-                    f.Name.LastName(gender),
+                    f.Name.FirstName(_gender),
+                    f.Name.LastName(_gender),
                     f.Date.Past(80, DateTime.Now.AddYears(-18)),
                     "",
                     active,
