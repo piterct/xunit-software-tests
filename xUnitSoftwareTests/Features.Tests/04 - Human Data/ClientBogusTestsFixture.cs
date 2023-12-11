@@ -54,13 +54,11 @@ namespace Features.Tests
 
         public Client GenerateInvalidClient()
         {
-            var gender = new Faker().PickRandom<Name.Gender>();
-
             var client = new Faker<Client>("pt_BR")
                 .CustomInstantiator(f => new Client(
                     _clientId,
-                    f.Name.FirstName(gender),
-                    f.Name.LastName(gender),
+                    f.Name.FirstName(_gender),
+                    f.Name.LastName(_gender),
                     f.Date.Past(1, DateTime.Now.AddDays(-1)),
                     "",
                     false,
