@@ -132,11 +132,10 @@ namespace NerdStore.Sales.Domain.Tests
         public void UpdateOrderItem__ItemUnitAboveAllowable__MustUpdateTotalValue()
         {
             // Arrange
-            var productId = Guid.NewGuid();
-            var orderItemExist1 = new OrderItem(productId, "Test Product", 3, 15);
+            var orderItemExist1 = new OrderItem(_productId, "Test Product", 3, 15);
             _order.AddItem(orderItemExist1);
 
-            var orderItemUpdated = new OrderItem(productId, "Test Product", Order.MAX_UNITS_ITEM, 15);
+            var orderItemUpdated = new OrderItem(_productId, "Test Product", Order.MAX_UNITS_ITEM, 15);
 
             // Act & Assert
             Assert.Throws<DomainException>(() => _order.UpdateItem(orderItemUpdated));
