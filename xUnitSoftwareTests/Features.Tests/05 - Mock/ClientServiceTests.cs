@@ -68,6 +68,7 @@ namespace Features.Tests
 
             // Assert
             _clientRepositoryMock.Verify(r => r.GetAll(), Times.Once);
+            Assert.NotNull(clients);
             Assert.True(clients.Any());
             Assert.False(clients.Count(c => !c.Active) > 0);
 
