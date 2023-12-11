@@ -58,19 +58,18 @@ namespace Features.Tests
         public void ClientService_GetAllActiveClients_MustReturnOnlyActiveClients()
         {
             // Arrange
-            var clientRepo = new Mock<IClientRepository>();
             var mediator = new Mock<IMediator>();
 
-            clientRepo.Setup(c => c.GetAll())
+            _clientRepositoryMock.Setup(c => c.GetAll())
                 .Returns(_clientBogusTestsFixture.GetRandomClients());
 
-            var clientService = new ClientService(clientRepo.Object, mediator.Object);
+            var clientService = new ClientService(_clientRepositoryMock.Object, mediator.Object);
 
             // Act
             var clients = clientService.GetAllActive();
 
             // Assert
-            clientRepo.Verify(r => r.GetAll(), Times.Once);
+            _clientRepositoryMock.Verify(r => r.GetAll(), Times.Once);
             Assert.True(clients.Any());
             Assert.False(clients.Count(c => !c.Active) > 0);
 
