@@ -91,17 +91,17 @@ namespace NerdStore.Sales.Domain.Tests
         public void UpdateOrderItem__OrderItemValid__MustUpdateQuantity()
         {
             // Arrange
-            var productId = Guid.NewGuid();
-            var orderItem = new OrderItem(productId, "Test Product", 2, 100);
+            var orderItem = new OrderItem(_productId, "Test Product", 2, 100);
             _order.AddItem(orderItem);
-            var orderItemUpdated = new OrderItem(productId, "Test Product", 5, 100);
+            var orderItemUpdated = new OrderItem(_productId, "Test Product", 5, 100);
             var newQuantity = orderItemUpdated.Quantity;
 
             //Act
             _order.UpdateItem(orderItemUpdated);
 
             //Assert
-            Assert.Equal(newQuantity, _order.OrderItems.FirstOrDefault(p => p.ProductId == productId).Quantity);
+            Assert.NotNull(_order.OrderItems.FirstOrDefault());
+            Assert.Equal(newQuantity, _order.OrderItems.FirstOrDefault(p => p.ProductId == _productId)?.Quantity);
 
         }
 
