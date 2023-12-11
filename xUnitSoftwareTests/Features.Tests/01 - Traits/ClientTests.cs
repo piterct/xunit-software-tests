@@ -5,6 +5,12 @@ namespace Features.Tests
 {
     public class ClientTests
     {
+        private readonly Guid _clientId;
+
+        public ClientTests()
+        {
+            _clientId = Guid.NewGuid();
+        }
 
         [Fact(DisplayName = "New valid client")]
         [Trait("Category", "Client Trait Tests")]
@@ -12,7 +18,7 @@ namespace Features.Tests
         {
             // Arrange
             var client = new Client(
-                Guid.NewGuid(),
+                _clientId,
                 "Michael",
                 "Peter",
                 DateTime.Now.AddYears(-30),
@@ -34,7 +40,7 @@ namespace Features.Tests
         {
             // Arrange
             var client = new Client(
-                Guid.NewGuid(),
+                _clientId,
                 "",
                 "",
                 DateTime.Now,
