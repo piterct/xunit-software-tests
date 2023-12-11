@@ -9,10 +9,12 @@ namespace Features.Tests
     public class ClientServiceTests
     {
         private readonly ClientBogusTestsFixture _clientBogusTestsFixture;
+        private readonly Mock<IClientRepository> _clientRepositoryMock;
 
         public ClientServiceTests(ClientBogusTestsFixture clientBogusTestsFixture)
         {
             _clientBogusTestsFixture = clientBogusTestsFixture;
+            _clientRepositoryMock = new Mock<IClientRepository>();
         }
 
         [Fact(DisplayName = "Add Client Successful")]
