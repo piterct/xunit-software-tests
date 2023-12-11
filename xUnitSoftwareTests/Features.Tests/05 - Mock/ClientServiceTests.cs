@@ -10,11 +10,13 @@ namespace Features.Tests
     {
         private readonly ClientBogusTestsFixture _clientBogusTestsFixture;
         private readonly Mock<IClientRepository> _clientRepositoryMock;
+        private readonly Mock<IMediator> _mediatorMock;
 
         public ClientServiceTests(ClientBogusTestsFixture clientBogusTestsFixture)
         {
             _clientBogusTestsFixture = clientBogusTestsFixture;
             _clientRepositoryMock = new Mock<IClientRepository>();
+            _mediatorMock = new Mock<IMediator>();
         }
 
         [Fact(DisplayName = "Add Client Successful")]
@@ -23,17 +25,16 @@ namespace Features.Tests
         {
             // Arrange
             var client = _clientBogusTestsFixture.GenerateValidNewClient();
-            var clientRepo = new Mock<IClientRepository>();
             var mediator = new Mock<IMediator>();
 
-            var clientService = new ClientService(clientRepo.Object, mediator.Object);
+            var clientService = new ClientService(_clientRepositoryMock.Object, mediator.Object);
 
             //Act
             clientService.Add(client);
 
             // Assert
             Assert.True(client.IsValid());
-            clientRepo.Verify(r => r.Add(client), Times.Once);
+            _clientRepositoryMock.Verify(r => r.Add(client), Times.Once);
             mediator.Verify(v => v.Publish(It.IsAny<INotification>(), CancellationToken.None), Times.Once);
         }
 
@@ -75,7 +76,7 @@ namespace Features.Tests
 
             // Assert
             clientRepo.Verify(r => r.GetAll(), Times.Once);
-            Assert.True(clients.Any()); 
+            Assert.True(clients.Any());
             Assert.False(clients.Count(c => !c.Active) > 0);
 
         }
