@@ -65,9 +65,8 @@ namespace NerdStore.Sales.Domain.Tests
         public void AddOrderItem__ExistingItemUnitAndSumAboveAllowable__MustReturnException()
         {
             // Arrange
-            var productId = Guid.NewGuid();
-            var orderItem = new OrderItem(productId, "Test Product", 1, 100);
-            var orderItem2 = new OrderItem(productId, "Test Product", Order.MAX_UNITS_ITEM, 100);
+            var orderItem = new OrderItem(_productId, "Test Product", 1, 100);
+            var orderItem2 = new OrderItem(_productId, "Test Product", Order.MAX_UNITS_ITEM, 100);
             _order.AddItem(orderItem);
 
             // Act & Assert
