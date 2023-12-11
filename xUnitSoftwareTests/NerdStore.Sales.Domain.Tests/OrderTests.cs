@@ -257,7 +257,7 @@ namespace NerdStore.Sales.Domain.Tests
         public void AplyVoucher__DiscountExceedsOrderTotalValue_OrderMustHasZeroValue()
         {
             // Arrange
-            var orderItem1 = new OrderItem(Guid.NewGuid(), "Product Xpto", 2, 100);
+            var orderItem1 = new OrderItem(_productId, "Product Xpto", 2, 100);
             _order.AddItem(orderItem1);
 
             var voucher = new Voucher("OFF-15", null, 300, 1, ETypeOfDiscountVoucher.Value, DateTime.Now.AddDays(10),
@@ -268,7 +268,6 @@ namespace NerdStore.Sales.Domain.Tests
 
             //Assert
             Assert.Equal(0, _order.TotalValue);
-
         }
 
 
