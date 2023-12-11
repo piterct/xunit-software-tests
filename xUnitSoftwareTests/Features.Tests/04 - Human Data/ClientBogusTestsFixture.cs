@@ -11,9 +11,11 @@ namespace Features.Tests
     public class ClientBogusTestsFixture : IDisposable
     {
         private readonly Guid _clientId;
+        private readonly Name.Gender _gender;
         public ClientBogusTestsFixture()
         {
             _clientId = Guid.NewGuid();
+            _gender = new Faker().PickRandom<Name.Gender>();
         }
         public Client GenerateValidNewClient()
         {
