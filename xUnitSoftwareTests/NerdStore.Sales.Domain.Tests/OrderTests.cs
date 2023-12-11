@@ -210,8 +210,8 @@ namespace NerdStore.Sales.Domain.Tests
         public void AplyVoucher__VoucherTypeOfDiscountValue_MustDiscountOfValueTotal()
         {
             // Arrange
-            var orderItem1 = new OrderItem(Guid.NewGuid(), "Product Xpto", 2, 100);
-            var orderItem2 = new OrderItem(Guid.NewGuid(), "Product Test", 3, 15);
+            var orderItem1 = new OrderItem(_productId, "Product Xpto", 2, 100);
+            var orderItem2 = new OrderItem(_productId, "Product Test", 3, 15);
             _order.AddItem(orderItem1);
             _order.AddItem(orderItem2);
 
