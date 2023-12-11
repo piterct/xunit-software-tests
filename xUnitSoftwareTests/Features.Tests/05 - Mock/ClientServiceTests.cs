@@ -25,7 +25,6 @@ namespace Features.Tests
         {
             // Arrange
             var client = _clientBogusTestsFixture.GenerateValidNewClient();
-
             var clientService = new ClientService(_clientRepositoryMock.Object, _mediatorMock.Object);
 
             //Act
