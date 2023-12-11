@@ -58,12 +58,10 @@ namespace Features.Tests
         public void ClientService_GetAllActiveClients_MustReturnOnlyActiveClients()
         {
             // Arrange
-            var mediator = new Mock<IMediator>();
-
             _clientRepositoryMock.Setup(c => c.GetAll())
                 .Returns(_clientBogusTestsFixture.GetRandomClients());
 
-            var clientService = new ClientService(_clientRepositoryMock.Object, mediator.Object);
+            var clientService = new ClientService(_clientRepositoryMock.Object, _mediatorMock.Object);
 
             // Act
             var clients = clientService.GetAllActive();
