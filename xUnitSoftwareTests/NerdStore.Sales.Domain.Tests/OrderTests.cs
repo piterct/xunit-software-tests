@@ -147,7 +147,7 @@ namespace NerdStore.Sales.Domain.Tests
         public void RemoveOrderItem__ItemDoesNotExistsInTheList__MustReturnException()
         {
             // Arrange
-            var orderItemRemove = new OrderItem(Guid.NewGuid(), "Test Product", 5, 100);
+            var orderItemRemove = new OrderItem(_productId, "Test Product", 5, 100);
 
             // Act & Assert
             Assert.Throws<DomainException>(() => _order.RemoveItem(orderItemRemove));
