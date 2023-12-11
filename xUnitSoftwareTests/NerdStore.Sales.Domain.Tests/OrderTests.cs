@@ -42,7 +42,8 @@ namespace NerdStore.Sales.Domain.Tests
             // Assert
             Assert.Equal(300, _order.TotalValue);
             Assert.Equal(1, _order.OrderItems.Count);
-            Assert.Equal(3, _order.OrderItems.FirstOrDefault(P => P.ProductId == productId).Quantity);
+            Assert.NotNull(_order.OrderItems.FirstOrDefault());
+            Assert.Equal(3, _order.OrderItems?.FirstOrDefault(p => p.ProductId == productId)?.Quantity);
         }
 
 
