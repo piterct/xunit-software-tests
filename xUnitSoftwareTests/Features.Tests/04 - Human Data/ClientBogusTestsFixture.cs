@@ -10,7 +10,11 @@ namespace Features.Tests
     { }
     public class ClientBogusTestsFixture : IDisposable
     {
-
+        private readonly Guid _clientId;
+        public ClientBogusTestsFixture()
+        {
+            _clientId = Guid.NewGuid();
+        }
         public Client GenerateValidNewClient()
         {
             return GenerateClients(1, true).FirstOrDefault();
@@ -34,7 +38,7 @@ namespace Features.Tests
 
             var clients = new Faker<Client>("pt_BR")
                 .CustomInstantiator(f => new Client(
-                    Guid.NewGuid(),
+                    _clientId,
                     f.Name.FirstName(gender),
                     f.Name.LastName(gender),
                     f.Date.Past(80, DateTime.Now.AddYears(-18)),
