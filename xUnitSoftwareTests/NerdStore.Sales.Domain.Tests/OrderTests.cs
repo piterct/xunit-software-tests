@@ -79,7 +79,7 @@ namespace NerdStore.Sales.Domain.Tests
         public void UpdateOrderItem__ItemDoesNotExistsInTheList__MustReturnException()
         {
             // Arrange
-            var orderItem = new OrderItem(Guid.NewGuid(), "Test Product", 1, 100);
+            var orderItem = new OrderItem(_productId, "Test Product", 1, 100);
 
             // Act & Assert
             Assert.Throws<DomainException>(() => _order.UpdateItem(orderItem));
