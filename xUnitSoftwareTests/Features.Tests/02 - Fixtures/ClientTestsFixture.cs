@@ -8,11 +8,16 @@ namespace Features.Tests
     { }
     public class ClientTestsFixture : IDisposable
     {
+        private readonly Guid _clientId;
+        public ClientTestsFixture()
+        {
+            _clientId = Guid.NewGuid();
+        }
 
         public Client GenerateValidClient()
         {
             var client = new Client(
-           Guid.NewGuid(),
+                _clientId,
            "Michael",
            "Peter",
            DateTime.Now.AddYears(-30),
@@ -26,7 +31,7 @@ namespace Features.Tests
         public Client GenerateInvalidClient()
         {
             var client = new Client(
-             Guid.NewGuid(),
+                _clientId,
              "",
              "",
              DateTime.Now,
