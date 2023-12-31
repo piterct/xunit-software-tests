@@ -13,6 +13,8 @@ using NerdStore.WebApp.MVC.Data;
 using NerdStore.WebApp.MVC.Setup;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
+using NerdStore.Catalogo.Application.AutoMapper;
+using NerdStore.Catalogo.Data;
 
 namespace NerdStore.WebApp.MVC
 {
