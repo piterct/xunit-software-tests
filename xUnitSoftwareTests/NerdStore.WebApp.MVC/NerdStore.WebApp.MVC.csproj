@@ -17,13 +17,4 @@
   </ItemGroup>
 
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\02 - TDD\src\NerdStore.Core\NerdStore.Core.csproj" />
-    <ProjectReference Include="..\..\..\02 - TDD\src\NerdStore.Vendas.Application\NerdStore.Vendas.Application.csproj" />
-    <ProjectReference Include="..\..\..\02 - TDD\src\NerdStore.Vendas.Data\NerdStore.Vendas.Data.csproj" />
-    <ProjectReference Include="..\NerdStore.Catalogo.Application\NerdStore.Catalogo.Application.csproj" />
-    <ProjectReference Include="..\NerdStore.Catalogo.Data\NerdStore.Catalogo.Data.csproj" />
-    <ProjectReference Include="..\NerdStore.Catalogo.Domain\NerdStore.Catalogo.Domain.csproj" />
-  </ItemGroup>
-
 </Project>
