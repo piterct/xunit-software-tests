@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NerdStore.Catalogo.Application.Services;
+using NerdStore.Core.DomainObjects;
 using NerdStore.Core.Messages.CommonMessages.Notifications;
 using NerdStore.Vendas.Application.Commands;
 using NerdStore.Vendas.Application.Queries;
@@ -49,7 +50,7 @@ namespace NerdStore.WebApp.MVC.Controllers
                 return RedirectToAction("ProdutoDetalhe", "Vitrine", new { id });
             }
 
-            var command = new AdicionarItemPedidoCommand(ClienteId, produto.Id, produto.Nome, quantidade, produto.Valor);
+            var command = new AddItemOrderCommand(ClienteId, produto.Id, produto.Nome, quantidade, produto.Valor);
             await _mediatorHandler.Send(command);
 
             if (OperacaoValida())
