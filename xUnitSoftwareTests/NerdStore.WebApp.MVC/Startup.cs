@@ -76,7 +76,7 @@ namespace NerdStore.WebApp.MVC
                     Title = "Testes API",
                     Description = " Teste API",
                     TermsOfService = "Nenhum",
-                    Contact = new Contact { Name = "desenvolvedor.io", Email = "email@desenvolvedor.io", Url = "http://desenvolvedor.io" },
+                    Contact = new Contact { Name = "Tests.io", Email = "email@desenvolvedor.io", Url = "http://desenvolvedor.io" },
                     License = new License { Name = "MIT", Url = "http://desenvolvedor.io/licensa" }
                 });
             });
