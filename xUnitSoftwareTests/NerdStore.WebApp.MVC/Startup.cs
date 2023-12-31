@@ -119,7 +119,7 @@ namespace NerdStore.WebApp.MVC
             app.UseSwagger();
             app.UseSwaggerUI(s =>
             {
-                s.SwaggerEndpoint("/swagger/v1/swagger.json", "desenvolvedor.io API v1.0");
+                s.SwaggerEndpoint("/swagger/v1/swagger.json", "tests.io API v1.0");
             });
         }
     }
