@@ -8,8 +8,4 @@
     <PackageReference Include="mediatr" Version="7.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\02 - TDD\src\NerdStore.Core\NerdStore.Core.csproj" />
-  </ItemGroup>
-
 </Project>
