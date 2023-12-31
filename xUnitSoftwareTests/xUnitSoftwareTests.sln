@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdStore.Core", "NerdStore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdStore.Sales.Application", "NerdStore.Sales.Application\NerdStore.Sales.Application.csproj", "{1DB80E55-EDA7-454F-AE45-E35CBB975050}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdStore.Sales.Data", "NerdStore.Sales.Data\NerdStore.Sales.Data.csproj", "{4BB9CB6B-9BFA-4617-8BC3-48A42138DA96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdStore.Sales.Data", "NerdStore.Sales.Data\NerdStore.Sales.Data.csproj", "{4BB9CB6B-9BFA-4617-8BC3-48A42138DA96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Integration Tests", "03 - Integration Tests", "{E5AF9DD2-1DFC-4F18-B5C4-56F3634B1557}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
