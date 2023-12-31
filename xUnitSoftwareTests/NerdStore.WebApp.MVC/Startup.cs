@@ -50,7 +50,7 @@ namespace NerdStore.WebApp.MVC
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
             services.AddHttpContextAccessor();
 
             services.AddSwaggerGen(c =>
