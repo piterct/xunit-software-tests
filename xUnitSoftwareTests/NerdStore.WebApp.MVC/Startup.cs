@@ -14,6 +14,7 @@ using NerdStore.WebApp.MVC.Data;
 using NerdStore.WebApp.MVC.Setup;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
+using NerdStore.Sales.Data;
 
 namespace NerdStore.WebApp.MVC
 {
