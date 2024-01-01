@@ -72,7 +72,7 @@ namespace NerdStore.WebApp.MVC
                 c.SwaggerDoc("v1", new Info
                 {
                     Version = "v1",
-                    Title = "Testes API",
+                    Title = "API Tests",
                     Description = " Teste API",
                     TermsOfService = "Nenhum",
                     Contact = new Contact { Name = "Tests.io", Email = "tests@email.io", Url = "http://tests.io" },
