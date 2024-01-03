@@ -14,6 +14,7 @@ using NerdStore.WebApp.MVC.Data;
 using NerdStore.WebApp.MVC.Setup;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace NerdStore.WebApp.MVC
 {
@@ -82,7 +83,7 @@ namespace NerdStore.WebApp.MVC
 
             services.AddAutoMapper(typeof(DomainToViewModelMappingProfile), typeof(ViewModelToDomainMappingProfile));
 
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
             services.RegisterServices();
         }
