@@ -7,14 +7,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using NerdStore.Catalogo.Application.AutoMapper;
 using NerdStore.Catalogo.Data;
 using NerdStore.Vendas.Data;
 using NerdStore.WebApp.MVC.Data;
 using NerdStore.WebApp.MVC.Setup;
-using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 using System.Reflection;
+using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Options;
 
 namespace NerdStore.WebApp.MVC
 {
@@ -55,31 +57,34 @@ namespace NerdStore.WebApp.MVC
 
             services.AddSwaggerGen(c =>
             {
-                var security = new Dictionary<string, IEnumerable<string>>
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                    {"Bearer", new string[] { }}
-                };
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            }
+                        },
+                        new List<string>()
+                    }
+                });
 
-                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = "Insira o token JWT desta maneira: Bearer {seu token}",
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
                     Name = "Authorization",
-                    In = "header",
-                    Type = "apiKey"
+                    Description = "Insira o token JWT desta maneira: Bearer {seu token}",
+                    Type = SecuritySchemeType.Http
                 });
 
-                c.AddSecurityRequirement(security);
-
-                c.SwaggerDoc("v1", new Info
-                {
-                    Version = "v1",
-                    Title = "API Tests",
-                    Description = " Teste API",
-                    TermsOfService = "Nenhum",
-                    Contact = new Contact { Name = "Tests.io", Email = "tests@email.io", Url = "http://tests.io" },
-                    License = new License { Name = "MIT", Url = "http://tests.io/licensa" }
-                });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1"});
             });
+
 
             services.AddAutoMapper(typeof(DomainToViewModelMappingProfile), typeof(ViewModelToDomainMappingProfile));
 
@@ -108,12 +113,12 @@ namespace NerdStore.WebApp.MVC
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-            
-            app.UseMvc(routes =>
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Vitrine}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(name: "Default", pattern: "{controller=Vitrine}/{action=Index}/{id?}");
             });
 
             app.UseSwagger();
