@@ -1,21 +1,21 @@
-﻿using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using NerdStore.WebApp.MVC.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using NerdStore.Catalogo.Application.AutoMapper;
 using NerdStore.Catalogo.Data;
 using NerdStore.Vendas.Data;
+using NerdStore.WebApp.MVC.Data;
 using NerdStore.WebApp.MVC.Models;
 using NerdStore.WebApp.MVC.Setup;
+using System.Text;
+using Microsoft.Extensions.Hosting;
 
 namespace NerdStore.WebApp.MVC
 {
@@ -23,7 +23,7 @@ namespace NerdStore.WebApp.MVC
     {
         public IConfiguration Configuration { get; }
 
-        public StartupApiTests(IHostingEnvironment hostEnvironment)
+        public StartupApiTests(IWebHostEnvironment hostEnvironment)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(hostEnvironment.ContentRootPath)
@@ -78,7 +78,7 @@ namespace NerdStore.WebApp.MVC
                 };
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
             services.AddHttpContextAccessor();
 
             services.AddAutoMapper(typeof(DomainToViewModelMappingProfile), typeof(ViewModelToDomainMappingProfile));
@@ -88,7 +88,7 @@ namespace NerdStore.WebApp.MVC
             services.RegisterServices();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
