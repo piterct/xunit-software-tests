@@ -107,11 +107,10 @@ namespace NerdStore.WebApp.MVC
 
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Vitrine}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(name: "Default", pattern: "{controller=Vitrine}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
