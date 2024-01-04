@@ -15,8 +15,6 @@ using NerdStore.WebApp.MVC.Data;
 using NerdStore.WebApp.MVC.Setup;
 using System.Collections.Generic;
 using System.Reflection;
-using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.Options;
 
 namespace NerdStore.WebApp.MVC
 {
