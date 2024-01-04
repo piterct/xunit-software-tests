@@ -111,14 +111,15 @@ namespace NerdStore.WebApp.MVC
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+   
             app.UseAuthentication();
-
             app.UseRouting();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(name: "Default", pattern: "{controller=Vitrine}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
             app.UseSwagger();
