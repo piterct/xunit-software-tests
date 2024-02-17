@@ -87,7 +87,7 @@ namespace NerdStore.Sales.Application.Tests.Commands.Order
             var orderCommand = new AddItemOrderCommand(_clientId, _productId, "Random Product", 2, 100);
 
             _mocker.GetMock<IOrderRepository>()
-                .Setup(r => r.GetDraftOrderByClientId(_clientId)).Returns(Task.FromResult(_order));
+                .Setup(r => r.GetDraftOrderByClientId(_clientId)).ReturnsAsync(await Task.FromResult(_order));
             _mocker.GetMock<IOrderRepository>().Setup(r => r.UnitOfWork.Commit()).Returns(Task.FromResult(true));
 
             //Act
