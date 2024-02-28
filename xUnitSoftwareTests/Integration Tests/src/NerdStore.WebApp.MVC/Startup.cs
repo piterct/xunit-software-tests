@@ -51,7 +51,7 @@ namespace NerdStore.WebApp.MVC
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddMvc();
+            services.AddControllersWithViews();
             services.AddHttpContextAccessor();
 
             services.AddSwaggerGen(c =>
@@ -111,12 +111,16 @@ namespace NerdStore.WebApp.MVC
             app.UseCookiePolicy();
    
             app.UseAuthentication();
+
             app.UseRouting();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(name: "Default", pattern: "{controller=Vitrine}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "Default",
+                    pattern: "{controller=Vitrine}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
 
