@@ -290,7 +290,7 @@ namespace NerdStore.Sales.Domain.Tests
             _order.AddItem(orderItem2);
 
             //Assert
-            var expectedValue = _order._orderItems.Sum(i => i.Quantity * i.UnitValue) - voucher.DiscountValue;
+            var expectedValue = _order.OrderItems.Sum(i => i.Quantity * i.UnitValue) - voucher.DiscountValue;
             Assert.Equal(expectedValue, _order.TotalValue);
 
         }
