@@ -17,10 +17,11 @@ namespace NerdStore.Sales.Domain
 
         public decimal TotalValue { get; private set; }
         public EOrderStatus OrderStatus { get; private set; }
-        public List<OrderItem> _orderItems { get; private set; }
-        public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
         public bool UsedVoucher { get; private set; }
         public Voucher Voucher { get; private set; }
+
+        private readonly List<OrderItem> _orderItems;
+        public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
 
         public ValidationResult ApplyVoucher(Voucher voucher)
         {
