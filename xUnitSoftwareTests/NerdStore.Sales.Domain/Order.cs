@@ -80,6 +80,7 @@ namespace NerdStore.Sales.Domain
             if (!ExistsOrderItem(item)) throw new DomainException($"The item does not belong in the order");
         }
 
+
         private void ValidateOrderItemQuantityAllowable(OrderItem item)
         {
             var quantityItems = item.Quantity;
