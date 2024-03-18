@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdStore.Vendas.Domain", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdStore.Vendas.Application", "Integration Tests\src\NerdStore.Vendas.Application\NerdStore.Vendas.Application.csproj", "{95B63512-66B1-4493-875C-DB7E8EC7636B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration Tests", "Integration Tests", "{996AB29E-B023-43A8-9961-784FEE75B071}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -155,6 +157,7 @@ Global
 		{45922516-5D18-43C5-A7E8-74C9B4EDD81C} = {E5AF9DD2-1DFC-4F18-B5C4-56F3634B1557}
 		{6BE661E8-B589-4788-AE05-E76A91B55C07} = {E5AF9DD2-1DFC-4F18-B5C4-56F3634B1557}
 		{95B63512-66B1-4493-875C-DB7E8EC7636B} = {E5AF9DD2-1DFC-4F18-B5C4-56F3634B1557}
+		{996AB29E-B023-43A8-9961-784FEE75B071} = {E5AF9DD2-1DFC-4F18-B5C4-56F3634B1557}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA9FEFE1-2BDF-495A-B801-F7133E43DF68}
