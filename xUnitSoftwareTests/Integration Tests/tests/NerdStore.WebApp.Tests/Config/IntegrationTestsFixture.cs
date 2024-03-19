@@ -10,7 +10,7 @@ namespace NerdStore.WebApp.Tests.Config
     public class IntegrationApiTestsFixtureCollection : ICollectionFixture<IntegrationTestsFixture<StartupApiTests>> { }
     public class IntegrationTestsFixture<TStartup> : IDisposable where TStartup : class
     {
-        public readonly LojaAppFactory<TStartup> Factory;
+        public readonly ShopAppFactory<TStartup> Factory;
         public HttpClient Client;
 
         public IntegrationTestsFixture()
@@ -20,7 +20,7 @@ namespace NerdStore.WebApp.Tests.Config
 
             };
 
-            Factory = new LojaAppFactory<TStartup>();
+            Factory = new ShopAppFactory<TStartup>();
             Client = Factory.CreateClient();
         }
 
