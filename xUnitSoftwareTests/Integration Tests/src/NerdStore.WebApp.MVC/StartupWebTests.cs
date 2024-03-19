@@ -14,6 +14,7 @@ using NerdStore.Catalogo.Data;
 using NerdStore.Vendas.Data;
 using NerdStore.WebApp.MVC.Data;
 using NerdStore.WebApp.MVC.Setup;
+using System.Reflection;
 
 namespace NerdStore.WebApp.MVC
 {
@@ -60,7 +61,7 @@ namespace NerdStore.WebApp.MVC
 
             services.AddAutoMapper(typeof(DomainToViewModelMappingProfile), typeof(ViewModelToDomainMappingProfile));
 
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
             services.RegisterServices();
         }
@@ -84,11 +85,23 @@ namespace NerdStore.WebApp.MVC
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-            
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(name: "Default", pattern: "{controller=Vitrine}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "Default",
+                    pattern: "{controller=Vitrine}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(s =>
+            {
+                s.SwaggerEndpoint("/swagger/v1/swagger.json", "tests.io API v1.0");
             });
         }
     }
