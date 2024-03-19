@@ -97,12 +97,6 @@ namespace NerdStore.WebApp.MVC
                     pattern: "{controller=Vitrine}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-
-            app.UseSwagger();
-            app.UseSwaggerUI(s =>
-            {
-                s.SwaggerEndpoint("/swagger/v1/swagger.json", "tests.io API v1.0");
-            });
         }
     }
 }
